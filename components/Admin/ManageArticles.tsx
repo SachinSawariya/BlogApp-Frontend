@@ -10,14 +10,15 @@ import { Article } from '@/components/Articles/types/articlesTypes';
 
 
 export const ManageArticles = () => {
-  const { articles, isLoading, error, handleDelete } = useManageArticles();
+  const { articles, isLoading, error, handleDelete, refreshArticles } = useManageArticles();
   const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string | null }>({
     isOpen: false,
     id: null
   });
-  const [seoDrawer, setSeoDrawer] = useState<{ isOpen: boolean; article: Article | null }>({
+  const [seoDrawer, setSeoDrawer] = useState<{ isOpen: boolean; article: Article | null; isLoading: boolean }>({
     isOpen: false,
-    article: null
+    article: null,
+    isLoading: false
   });
 
   const openDeleteModal = (id: string) => {
@@ -118,7 +119,7 @@ export const ManageArticles = () => {
                       <FiEye size={18} />
                     </Link>
                     <button 
-                      onClick={() => setSeoDrawer({ isOpen: true, article: article as any })}
+                      onClick={() => setSeoDrawer({ isOpen: true, article: article as any, isLoading: false })}
                       className="p-2 text-gray-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all"
                       title="SEO Settings"
                     >
@@ -174,9 +175,12 @@ export const ManageArticles = () => {
       
       <SEODrawer 
         isOpen={seoDrawer.isOpen}
-        onClose={() => setSeoDrawer({ isOpen: false, article: null })}
+        onClose={() => setSeoDrawer({ isOpen: false, article: null, isLoading: false })}
         article={seoDrawer.article}
-        onSuccess={() => window.location.reload()}
+        onSuccess={async () => {
+          await refreshArticles();
+          setSeoDrawer({ isOpen: false, article: null, isLoading: false });
+        }}
       />
     </div>
   );

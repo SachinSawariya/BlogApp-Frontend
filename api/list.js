@@ -28,6 +28,10 @@ export const apiList = {
     url: (slug) => `/${baseUrl}/blogs/article/${slug}`,
     method: 'GET'
   },
+  getArticleSEO: {
+    url: (slug) => `/${baseUrl}/blogs/article-seo/${slug}`,
+    method: 'GET'
+  },
   getCategoryArticles: {
     url: (slug, page = 1, limit = 12) => `/${baseUrl}/blogs/articles/${slug}?page=${page}&limit=${limit}`,
     method: 'GET'

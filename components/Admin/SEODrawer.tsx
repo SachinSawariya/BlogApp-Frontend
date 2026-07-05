@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from 'react';
 import { FiX, FiSave, FiAlertCircle } from 'react-icons/fi';
-import commonApi from '@/api';
+import { useSEODrawer } from './hooks/useSEODrawer';
 import { Article } from '@/components/Articles/types/articlesTypes';
 
 interface SEODrawerProps {
@@ -13,59 +12,44 @@ interface SEODrawerProps {
 }
 
 export const SEODrawer = ({ isOpen, onClose, article, onSuccess }: SEODrawerProps) => {
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  
-  const [formData, setFormData] = useState({
-    seoTitle: '',
-    seoDescription: '',
-    seoKeywords: '',
-    seoCanonicalUrl: '',
-    seoAuthor: '',
-    seoOgImage: ''
-  });
-
-  useEffect(() => {
-    if (article) {
-      setFormData({
-        seoTitle: article.seoTitle || '',
-        seoDescription: article.seoDescription || '',
-        seoKeywords: article.seoKeywords || '',
-        seoCanonicalUrl: article.seoCanonicalUrl || '',
-        seoAuthor: article.seoAuthor || '',
-        seoOgImage: article.seoOgImage || ''
-      });
-    }
-  }, [article]);
+  const {
+    formData,
+    isSaving,
+    isLoadingArticle,
+    error,
+    handleChange,
+    handleSave
+  } = useSEODrawer(article, isOpen, onSuccess, onClose);
 
   if (!isOpen) return null;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSave = async () => {
-    if (!article) return;
-    
-    setIsSaving(true);
-    setError(null);
-    
-    try {
-      await commonApi({
-        action: 'updateBlog',
-        parameters: [article._id],
-        data: formData
-      });
-      onSuccess();
-      onClose();
-    } catch (err: any) {
-      console.error('Error saving SEO data:', err);
-      setError(err?.response?.data?.message || 'Failed to save SEO data');
-    } finally {
-      setIsSaving(false);
-    }
-  };
+  if (isLoadingArticle) {
+    return (
+      <>
+        <div 
+          className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-[100]" 
+          onClick={onClose}
+        />
+        <div className="fixed inset-y-0 right-0 max-w-xl w-full bg-white shadow-2xl z-[110] flex flex-col">
+          <div className="flex items-center justify-between p-6 border-b border-gray-100">
+            <div>
+              <h2 className="text-xl font-black text-gray-900">SEO Settings</h2>
+              <p className="text-sm text-gray-500 mt-1">Loading...</p>
+            </div>
+            <button 
+              onClick={onClose}
+              className="p-2 text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all"
+            >
+              <FiX size={20} />
+            </button>
+          </div>
+          <div className="flex-1 flex items-center justify-center">
+            <div className="w-10 h-10 border-4 border-blue-600/30 border-t-blue-600 rounded-full animate-spin"></div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
