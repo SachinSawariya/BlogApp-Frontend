@@ -16,4 +16,12 @@ export interface Article {
   coverImage?: string;
   tags?: string[];
   views?: number;
+  
+  // SEO Fields
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string;
+  seoCanonicalUrl?: string;
+  seoAuthor?: string;
+  seoOgImage?: string;
 }

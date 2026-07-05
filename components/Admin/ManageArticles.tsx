@@ -1,10 +1,12 @@
 "use client";
 
 import Link from 'next/link';
-import { FiEdit2, FiTrash2, FiEye, FiClock, FiCheckCircle, FiMoreVertical, FiLayout } from 'react-icons/fi';
+import { FiEdit2, FiTrash2, FiEye, FiClock, FiCheckCircle, FiMoreVertical, FiLayout, FiGlobe } from 'react-icons/fi';
 import { useManageArticles } from './hooks/useManageArticles';
 import { ConfirmationModal } from '@/shared/Modal/ConfirmationModal';
 import { useState } from 'react';
+import { SEODrawer } from './SEODrawer';
+import { Article } from '@/components/Articles/types/articlesTypes';
 
 
 export const ManageArticles = () => {
@@ -12,6 +14,10 @@ export const ManageArticles = () => {
   const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string | null }>({
     isOpen: false,
     id: null
+  });
+  const [seoDrawer, setSeoDrawer] = useState<{ isOpen: boolean; article: Article | null }>({
+    isOpen: false,
+    article: null
   });
 
   const openDeleteModal = (id: string) => {
@@ -111,6 +117,13 @@ export const ManageArticles = () => {
                     >
                       <FiEye size={18} />
                     </Link>
+                    <button 
+                      onClick={() => setSeoDrawer({ isOpen: true, article: article as any })}
+                      className="p-2 text-gray-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all"
+                      title="SEO Settings"
+                    >
+                      <FiGlobe size={18} />
+                    </button>
                     <Link 
                       href={`/admin/edit/${article.slug}`}
                       className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-all"
@@ -157,6 +170,13 @@ export const ManageArticles = () => {
         type="danger"
         confirmText="Yes, Delete"
         cancelText="Cancel"
+      />
+      
+      <SEODrawer 
+        isOpen={seoDrawer.isOpen}
+        onClose={() => setSeoDrawer({ isOpen: false, article: null })}
+        article={seoDrawer.article}
+        onSuccess={() => window.location.reload()}
       />
     </div>
   );

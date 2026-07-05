@@ -72,9 +72,9 @@ export const useTagArticles = (
   }, [tag, page, limit, initialData]);
 
   useEffect(() => {
-    if (initialData && page === 1) {
-      setArticles(transformArticles(initialData.articles));
-      setPagination(initialData.pagination);
+    if (initialData && typeof initialData !== "string" && page === 1) {
+      if (initialData.articles) setArticles(transformArticles(initialData.articles));
+      if (initialData.pagination) setPagination(initialData.pagination);
       if (initialData.tag) setDisplayTag(initialData.tag);
       setIsLoading(false);
     }

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "Explore the latest in AI, Machine Learning, and Web Development.",
     url: "https://gyanvora.vercel.app",
-    images: ["/home-og.png"],
+    images: ["/logo.svg"],
   },
 };
 

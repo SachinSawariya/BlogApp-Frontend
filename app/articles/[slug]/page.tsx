@@ -23,37 +23,39 @@ export async function generateMetadata(
     if (!article) return { title: "Article Not Found" };
 
     const previousImages = (await parent).openGraph?.images || [];
+    
+    const canonicalUrl = article.seoCanonicalUrl || `https://gyanvora.vercel.app/articles/${slug}`;
+    const metaTitle = article.seoTitle || article.title;
+    const metaDesc = article.seoDescription || (article.content
+      ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 160).trim()
+      : "Read this interesting article on Gyanvora.");
+    const keywords = article.seoKeywords ? article.seoKeywords.split(',').map(k => k.trim()) : (article.tags || []);
+    const ogImage = article.seoOgImage || article.coverImage;
 
     return {
-      title: article.title,
-      description: article.content
-        ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 160).trim()
-        : "Read this interesting article on Gyanvora.",
-      keywords: article.tags || [],
+      title: metaTitle,
+      description: metaDesc,
+      keywords: keywords,
       alternates: {
-        canonical: `https://gyanvora.vercel.app/articles/${slug}`,
+        canonical: canonicalUrl,
       },
       openGraph: {
-        title: article.title,
-        description: article.content
-          ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 160).trim()
-          : "Read this interesting article on Gyanvora.",
-        url: `https://gyanvora.vercel.app/articles/${slug}`,
-        images: article.coverImage
-          ? [article.coverImage, ...previousImages]
+        title: metaTitle,
+        description: metaDesc,
+        url: canonicalUrl,
+        images: ogImage
+          ? [ogImage, ...previousImages]
           : previousImages,
         type: "article",
         publishedTime: article.createdAt,
-        authors: [article.authorName || "Gyanvora Team"],
-        tags: article.tags,
+        authors: [article.seoAuthor || article.authorName || "Gyanvora Team"],
+        tags: keywords,
       },
       twitter: {
         card: "summary_large_image",
-        title: article.title,
-        description: article.content
-          ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 160).trim()
-          : "Read this interesting article on Gyanvora.",
-        images: article.coverImage ? [article.coverImage] : [],
+        title: metaTitle,
+        description: metaDesc,
+        images: ogImage ? [ogImage] : [],
       },
     };
   } catch (error) {
@@ -76,19 +78,25 @@ export default async function ArticleDetailPage({ params }: Props) {
 
 
     if (article) {
+      const canonicalUrl = article.seoCanonicalUrl || `https://gyanvora.vercel.app/articles/${slug}`;
+      const metaTitle = article.seoTitle || article.title;
+      const metaDesc = article.seoDescription || (article.content
+        ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 160).trim()
+        : "Read this interesting article on Gyanvora.");
+      const ogImage = article.seoOgImage || article.coverImage;
+      const keywordsString = article.seoKeywords || article.tags?.join(", ");
+        
       jsonLd = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        headline: article.title,
-        description: article.content
-          ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 160).trim()
-          : "Read this interesting article on Gyanvora.",
-        image: article.coverImage,
+        headline: metaTitle,
+        description: metaDesc,
+        image: ogImage,
         datePublished: article.createdAt,
         dateModified: article.updatedAt || article.createdAt,
         author: {
           "@type": "Person",
-          name: article.authorName || "Gyanvora Team",
+          name: article.seoAuthor || article.authorName || "Gyanvora Team",
         },
         publisher: {
           "@type": "Organization",
@@ -100,9 +108,9 @@ export default async function ArticleDetailPage({ params }: Props) {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `https://gyanvora.vercel.app/articles/${slug}`,
+          "@id": canonicalUrl,
         },
-        keywords: article.tags?.join(", "),
+        keywords: keywordsString,
         articleSection: typeof article.category === 'string' ? article.category : article.category?.name,
       };
     }

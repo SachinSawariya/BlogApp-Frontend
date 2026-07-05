@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "About Us",
   description:
     "Learn more about the Gyanvora team, our mission to empower developers with AI, and our core values.",
+  alternates: {
+    canonical: "https://gyanvora.vercel.app/about-us",
+  },
   openGraph: {
     title: "About Us | Gyanvora",
     description:
@@ -23,5 +26,27 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <AboutUs />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About Us",
+    description: "Learn more about the Gyanvora team, our mission to empower developers with AI, and our core values.",
+    url: "https://gyanvora.vercel.app/about-us",
+    mainEntity: {
+      "@type": "Organization",
+      name: "Gyanvora",
+      url: "https://gyanvora.vercel.app",
+      logo: "https://gyanvora.vercel.app/logo.svg",
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <AboutUs />
+    </>
+  );
 }
