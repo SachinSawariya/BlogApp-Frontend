@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { FiEdit2, FiTrash2, FiEye, FiClock, FiCheckCircle, FiMoreVertical, FiLayout, FiGlobe } from 'react-icons/fi';
+import { FiEdit2, FiTrash2, FiEye, FiClock, FiCheckCircle, FiMoreVertical, FiLayout, FiGlobe, FiRefreshCw } from 'react-icons/fi';
 import { useManageArticles } from './hooks/useManageArticles';
 import { ConfirmationModal } from '@/shared/Modal/ConfirmationModal';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import { Article } from '@/components/Articles/types/articlesTypes';
 
 
 export const ManageArticles = () => {
-  const { articles, isLoading, error, handleDelete, refreshArticles } = useManageArticles();
+  const { articles, isLoading, error, handleDelete, handleIndexUrl, refreshArticles } = useManageArticles();
   const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string | null }>({
     isOpen: false,
     id: null
@@ -124,6 +124,13 @@ export const ManageArticles = () => {
                       title="SEO Settings"
                     >
                       <FiGlobe size={18} />
+                    </button>
+                    <button 
+                      onClick={() => handleIndexUrl(article.slug)}
+                      className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all"
+                      title="Index with Google"
+                    >
+                      <FiRefreshCw size={18} />
                     </button>
                     <Link 
                       href={`/admin/edit/${article.slug}`}

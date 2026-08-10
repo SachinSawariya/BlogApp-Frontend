@@ -61,6 +61,10 @@ export const apiList = {
     url: (id) => `/${baseUrl}/blogs/${id}`,
     method: 'DELETE'
   },
+  indexUrl: {
+    url: () => `/${baseUrl}/blogs/index-url`,
+    method: 'POST'
+  },
 
   // Categories
   getCategoriesList: {

@@ -8,22 +8,31 @@ interface Category {
   slug: string;
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://gyanvora.vercel.app";
+// Revalidate sitemap every hour to pick up new articles
+export const revalidate = 3600;
 
-  // Fetch all articles
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://gyanvora.vercel.app";
+
+  // Fetch all articles with cache busting
   let articles = [];
   try {
-    const response = await commonApi({ action: "getBlogList" });
+    const response = await commonApi({ 
+      action: "getBlogList",
+      config: { cache: 'no-store' }
+    });
     articles = response.data || [];
   } catch (error) {
     console.error("Error fetching articles for sitemap:", error);
   }
 
-  // Fetch all categories
+  // Fetch all categories with cache busting
   let categories = [];
   try {
-    const response = await commonApi({ action: "getCategoriesList" });
+    const response = await commonApi({ 
+      action: "getCategoriesList",
+      config: { cache: 'no-store' }
+    });
     categories = response.data || [];
   } catch (error) {
     console.error("Error fetching categories for sitemap:", error);

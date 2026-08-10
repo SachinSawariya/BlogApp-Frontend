@@ -53,11 +53,29 @@ export const useManageArticles = () => {
     }
   };
 
+  const handleIndexUrl = async (slug: string) => {
+    try {
+      const baseUrl = window.location.origin;
+      const url = `${baseUrl}/articles/${slug}`;
+      
+      await commonApi({
+        action: 'indexUrl',
+        data: { url, type: 'URL_UPDATED' }
+      });
+      
+      alert('URL indexing request sent to Google successfully');
+    } catch (err) {
+      alert('Failed to send indexing request');
+      console.error(err);
+    }
+  };
+
   return {
     articles,
     isLoading,
     error,
     handleDelete,
+    handleIndexUrl,
     refreshArticles: fetchArticles
   };
 };
