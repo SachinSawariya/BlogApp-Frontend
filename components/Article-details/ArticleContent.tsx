@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { FiCalendar, FiClock, FiUser, FiHeart, FiBookmark } from "react-icons/fi";
 import { Article } from "@/components/Articles/types/articlesTypes";
 import Image from "next/image";
+import { useEffect } from "react";
 
 interface ArticleContentProps {
   article: Article | null;

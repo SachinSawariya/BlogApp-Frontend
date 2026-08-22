@@ -11,7 +11,7 @@ export default function WriteArticlePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-4 py-10 lg:py-16">
+      <div className="max-w-4xl mx-auto px-4 py-8 md:py-10 lg:py-16">
         <WriteArticleHeader />
         <WriteArticleForm />
       </div>

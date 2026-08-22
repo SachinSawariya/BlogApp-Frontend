@@ -1,0 +1,172 @@
+.quill-editor-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
+}
+
+.quill-editor-container:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Toolbar Styling */
+.quill-editor-container .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid #f3f4f6;
+  background-color: #f9fafb;
+  padding: 12px 16px;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  font-family: inherit;
+}
+
+.quill-editor-container .ql-toolbar.ql-snow .ql-formats {
+  margin-right: 12px;
+}
+
+.quill-editor-container .ql-snow.ql-toolbar button,
+.quill-editor-container .ql-snow .ql-toolbar button {
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.quill-editor-container .ql-snow.ql-toolbar button:hover,
+.quill-editor-container .ql-snow .ql-toolbar button:hover,
+.quill-editor-container .ql-snow.ql-toolbar button:focus,
+.quill-editor-container .ql-snow .ql-toolbar button:focus,
+.quill-editor-container .ql-snow.ql-toolbar button.ql-active,
+.quill-editor-container .ql-snow .ql-toolbar button.ql-active {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.quill-editor-container .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.quill-editor-container .ql-snow .ql-toolbar button.ql-active .ql-stroke,
+.quill-editor-container .ql-snow.ql-toolbar button:hover .ql-stroke,
+.quill-editor-container .ql-snow .ql-toolbar button:hover .ql-stroke {
+  stroke: #2563eb;
+}
+
+.quill-editor-container .ql-snow.ql-toolbar button.ql-active .ql-fill,
+.quill-editor-container .ql-snow .ql-toolbar button.ql-active .ql-fill,
+.quill-editor-container .ql-snow.ql-toolbar button:hover .ql-fill,
+.quill-editor-container .ql-snow .ql-toolbar button:hover .ql-fill {
+  fill: #2563eb;
+}
+
+/* Editor Area Styling — fixed height, content scrolls */
+.quill-editor-container .ql-container.ql-snow {
+  border: none;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  height: 60vh;
+  overflow-y: auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.quill-editor-container .ql-editor {
+  padding: 24px;
+  line-height: 1.75;
+  color: #374151;
+  min-height: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.quill-editor-container .ql-editor p {
+  margin-bottom: 1em;
+}
+
+.quill-editor-container .ql-editor h1,
+.quill-editor-container .ql-editor h2,
+.quill-editor-container .ql-editor h3,
+.quill-editor-container .ql-editor h4,
+.quill-editor-container .ql-editor h5,
+.quill-editor-container .ql-editor h6 {
+  color: #111827;
+  font-weight: 800;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.quill-editor-container .ql-editor h1 {
+  font-size: 2.25em;
+}
+
+.quill-editor-container .ql-editor h2 {
+  font-size: 1.875em;
+}
+
+.quill-editor-container .ql-editor h3 {
+  font-size: 1.5em;
+}
+
+.quill-editor-container .ql-editor a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.quill-editor-container .ql-editor a:hover {
+  text-decoration: underline;
+}
+
+.quill-editor-container .ql-editor blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1rem;
+  margin-left: 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+
+
+.quill-editor-container .ql-editor img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 1.5rem auto;
+  display: block;
+}
+
+.quill-editor-container .ql-editor video {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 1.5rem auto;
+  display: block;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 640px) {
+  .quill-editor-container .ql-toolbar.ql-snow {
+    padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .quill-editor-container .ql-toolbar.ql-snow .ql-formats {
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+
+  .quill-editor-container .ql-editor {
+    padding: 12px 16px;
+  }
+  
+  .quill-editor-container .ql-container.ql-snow {
+    height: 70vh; /* slightly taller on mobile */
+  }
+}

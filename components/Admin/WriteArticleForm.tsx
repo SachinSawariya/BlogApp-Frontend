@@ -11,7 +11,7 @@ import {
 } from "react-icons/fi";
 
 import { useWriteArticle } from "./hooks/useWriteArticle";
-import LexicalEditor from "@/shared/Editor/LexicalEditor";
+import QuillEditor from "@/shared/Editor/QuillEditor";
 import { ConfirmationModal } from "@/shared/Modal/ConfirmationModal";
 import { CustomDropdown } from "@/shared/Dropdown/CustomDropdown";
 
@@ -63,7 +63,7 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
       />
 
       <div className="space-y-6">
-        <div className="space-y-2">
+        <div className="space-y-2 min-w-0">
           <label className="text-sm font-bold text-gray-900 ml-1">
             Article Title
           </label>
@@ -134,8 +134,8 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
 
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="space-y-2 min-w-0">
             <label className="text-sm font-bold text-gray-900 ml-1">
               Cover Image URL
             </label>
@@ -161,12 +161,12 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
               required
               value={formData.readTime}
               onChange={handleChange}
-              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 transition-all font-bold"
+              className="w-full px-4 md:px-6 py-3 md:py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 transition-all font-bold"
             />
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 min-w-0">
           <label className="text-sm font-bold text-gray-900 ml-1">
             Tags (comma separated)
           </label>
@@ -175,16 +175,16 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
             value={formData.tags}
             onChange={handleChange}
             placeholder="AI, React, WebDev..."
-            className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
+            className="w-full px-4 md:px-6 py-3 md:py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 max-w-full">
           <label className="text-sm font-bold text-gray-900 ml-1">
             Content (Rich Text Editor)
           </label>
-          <div id="content">
-            <LexicalEditor
+          <div id="content" className="w-full max-w-full overflow-hidden">
+            <QuillEditor
               key={resetKey}
               value={formData.content}
               onChange={(val) => {
