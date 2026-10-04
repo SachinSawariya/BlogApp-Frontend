@@ -1,11 +1,11 @@
 "use client";
-import { useArticles } from "@/components/Articles/hooks/useArticles";
+import { useArticles, type ArticleSection as ArticleSectionData } from "@/components/Articles/hooks/useArticles";
 import { ArticleSection } from "./ArticleSections";
 import ArticlesSkeleton from "./ArticleSkeleton";
 import { useState } from "react";
 import { FiGrid, FiList, FiBookOpen, FiTrendingUp } from "react-icons/fi";
 
-export default function ArticlesPageComponent({ initialSections }: { initialSections?: any[] }) {
+export default function ArticlesPageComponent({ initialSections }: { initialSections?: ArticleSectionData[] }) {
   const { sections, isLoading } = useArticles(initialSections);
   const [globalViewMode, setGlobalViewMode] = useState<"grid" | "list">("grid");
 

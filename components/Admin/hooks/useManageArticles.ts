@@ -40,6 +40,8 @@ export const useManageArticles = () => {
     fetchArticles();
   }, []);
 
+  const [indexingSlug, setIndexingSlug] = useState<string | null>(null);
+
   const handleDelete = async (id: string) => {
     try {
       await commonApi({
@@ -55,7 +57,8 @@ export const useManageArticles = () => {
 
   const handleIndexUrl = async (slug: string) => {
     try {
-      const baseUrl = window.location.origin;
+      setIndexingSlug(slug);
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gyanvora.vercel.app';
       const url = `${baseUrl}/articles/${slug}`;
       
       await commonApi({
@@ -67,6 +70,8 @@ export const useManageArticles = () => {
     } catch (err) {
       alert('Failed to send indexing request');
       console.error(err);
+    } finally {
+      setIndexingSlug(null);
     }
   };
 
@@ -74,6 +79,7 @@ export const useManageArticles = () => {
     articles,
     isLoading,
     error,
+    indexingSlug,
     handleDelete,
     handleIndexUrl,
     refreshArticles: fetchArticles

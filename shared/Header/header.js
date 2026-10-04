@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { FiSearch, FiBookmark, FiLock } from "react-icons/fi";
+import { FiSearch, FiLock } from "react-icons/fi";
 import { useAuth } from "@/context/AuthContext";
 
 const navItems = [

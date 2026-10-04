@@ -18,13 +18,18 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 60;
+
 export default async function ArticlesPage() {
   let sections: { category: string; articles: Article[] }[] = [];
   try {
-    const response = await commonApi({ action: "getArticleSections", config: { cache: "no-store" } });
-    const rawSections = response.data || [];
+    const response = await commonApi({ action: "getArticleSections", config: { next: { revalidate: 60 } } });
+    const rawSections = (response.data || []) as {
+      category: string;
+      articles: Parameters<typeof transformArticles>[0];
+    }[];
 
-    sections = rawSections.map((section: any) => ({
+    sections = rawSections.map((section) => ({
       category: section.category,
       articles: Array.isArray(section.articles) ? transformArticles(section.articles) : []
     }));

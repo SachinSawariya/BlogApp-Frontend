@@ -1,22 +1,21 @@
-"use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FiArrowRight, FiTrendingUp } from "react-icons/fi";
 import ArticleCard from "@/shared/Card/ArticleCard";
 import ArticleCardSkeleton from "@/shared/Skeleton/ArticleCardSkeleton";
 
-const FeaturedHeader = ({ onNavigate }) => (
+const FeaturedHeader = () => (
   <div className="flex justify-between items-center mb-10">
     <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
       <FiTrendingUp className="text-blue-600" />
       Featured Articles
     </h2>
-    <button 
-      onClick={onNavigate}
+    <Link 
+      href="/articles"
       className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 group"
     >
       View All
       <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-    </button>
+    </Link>
   </div>
 );
 
@@ -28,7 +27,7 @@ const FeaturedLoading = () => (
   </div>
 );
 
-const FeaturedEmpty = ({ onNavigate }) => (
+const FeaturedEmpty = () => (
   <div className="text-center py-16 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
     <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
       <FiTrendingUp className="w-12 h-12 text-gray-300" />
@@ -39,12 +38,12 @@ const FeaturedEmpty = ({ onNavigate }) => (
     <p className="text-gray-500 mb-8 max-w-sm mx-auto">
       Check back soon for our latest featured content or explore other sections.
     </p>
-    <button 
-      onClick={onNavigate}
-      className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/10 active:scale-95"
+    <Link 
+      href="/articles"
+      className="inline-block px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/10 active:scale-95"
     >
       Browse All Articles
-    </button>
+    </Link>
   </div>
 );
 
@@ -68,9 +67,6 @@ const FeaturedList = ({ posts }) => (
 );
 
 export default function FeaturedPosts({ posts, isLoading }) {
-  const router = useRouter();
-  const handleViewAll = () => router.push("/articles");
-
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -95,11 +91,11 @@ export default function FeaturedPosts({ posts, isLoading }) {
                     Featured Articles
                   </h2>
                 </div>
-                <FeaturedEmpty onNavigate={handleViewAll} />
+                <FeaturedEmpty />
               </>
             ) : (
               <>
-                <FeaturedHeader onNavigate={handleViewAll} />
+                <FeaturedHeader />
                 <FeaturedList posts={posts} />
               </>
             )}

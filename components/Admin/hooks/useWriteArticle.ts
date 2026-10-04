@@ -130,8 +130,9 @@ export const useWriteArticle = (editSlug?: string) => {
         
         const isTaken = response.data && typeof response.data === 'object' && response.data.id;
         setIsSlugUnique(isTaken ? 'taken' : 'unique');
-      } catch (err: any) {
-        setIsSlugUnique(err.status === 404 ? 'unique' : 'idle');
+      } catch (err: unknown) {
+        const error = err as { status?: number };
+        setIsSlugUnique(error.status === 404 ? 'unique' : 'idle');
       }
     }, 500);
 
@@ -251,9 +252,10 @@ export const useWriteArticle = (editSlug?: string) => {
         setStatus('error');
         setErrorMessage(response.message || 'Failed to save blog');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } }; message?: string };
       setStatus('error');
-      setErrorMessage(err.response?.data?.message || err.message || 'Something went wrong');
+      setErrorMessage(error.response?.data?.message || error.message || 'Something went wrong');
     }
   }, [isEdit, isSlugUnique, originalStatus, articleId, formData, validateForm, resetForm]);
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import commonApi from "@/api";
-import { Article } from "../types/articlesTypes";
+import { Article, PaginationInfo } from "../types/articlesTypes";
 import { transformArticles } from "@/utils/articleTransformer";
 
 interface UseTagArticlesProps {
@@ -11,7 +11,7 @@ interface UseTagArticlesProps {
 
 export const useTagArticles = (
   { tag, page = 1, limit = 12 }: UseTagArticlesProps,
-  initialData?: { articles: Article[]; pagination: any; tag?: string },
+  initialData?: { articles: Article[]; pagination: PaginationInfo; tag?: string },
 ) => {
   const [articles, setArticles] = useState<Article[]>(
     initialData ? transformArticles(initialData.articles) : [],

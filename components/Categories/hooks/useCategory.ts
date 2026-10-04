@@ -12,6 +12,7 @@ interface Category {
 
 interface UseCategoryProps {
   initialSearchQuery?: string;
+  initialCategories?: Category[];
 }
 
 // Default icons for categories (can be extended or replaced)
@@ -32,11 +33,12 @@ const defaultIcons: Record<string, string> = {
 
 export const useCategory = ({
   initialSearchQuery = "",
+  initialCategories,
 }: UseCategoryProps = {}) => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>(initialCategories || []);
+  const [filteredCategories, setFilteredCategories] = useState<Category[]>(initialCategories || []);
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!initialCategories || initialCategories.length === 0);
   const [error, setError] = useState<Error | null>(null);
 
   const fetchCategories = useCallback(async () => {
@@ -132,8 +134,10 @@ export const useCategory = ({
   }, [searchQuery, categories]);
 
   useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+    if (!initialCategories || initialCategories.length === 0) {
+      fetchCategories();
+    }
+  }, [fetchCategories, initialCategories]);
 
   return {
     categories: filteredCategories,

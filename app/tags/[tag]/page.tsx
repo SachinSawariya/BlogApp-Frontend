@@ -1,7 +1,9 @@
 import TagArticlesPageComponent from "@/components/Articles/TagArticlesPage";
 import { Metadata } from "next";
 import commonApi from "@/api";
-import { Article } from "@/components/Articles/types/articlesTypes";
+import { Article, PaginationInfo } from "@/components/Articles/types/articlesTypes";
+
+export const revalidate = 60;
 
 type Props = {
   params: Promise<{ tag: string }>;
@@ -40,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function TagArticlesPage({ params }: Props) {
   const { tag } = await params;
-  let initialData: { articles: Article[]; pagination: any, tag?: string } | undefined = undefined;
+  let initialData: { articles: Article[]; pagination: PaginationInfo; tag?: string } | undefined = undefined;
 
   try {
     const response = await commonApi({

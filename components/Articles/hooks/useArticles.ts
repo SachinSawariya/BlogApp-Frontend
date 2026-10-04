@@ -3,12 +3,12 @@ import commonApi from "@/api";
 import { Article } from "../types/articlesTypes";
 import { transformArticles } from "@/utils/articleTransformer";
 
-interface ArticleSection {
+export interface ArticleSection {
   category: string;
   articles: Article[];
 }
 
-export const useArticles = (initialData?: any[]) => {
+export const useArticles = (initialData?: ArticleSection[]) => {
   const [sections, setSections] = useState<
     Array<{
       category: string;

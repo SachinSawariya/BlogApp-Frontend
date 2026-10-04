@@ -1,22 +1,21 @@
-"use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FiFolder, FiArrowRight, FiGrid } from "react-icons/fi";
 import CategoryCard from "@/shared/Card/CategoryCard";
 import CategoryCardSkeleton from "@/shared/Skeleton/CategoryCardSkeleton";
 
-const CategoryHeader = ({ onNavigate }) => (
+const CategoryHeader = () => (
   <div className="flex justify-between items-center mb-12">
     <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
       <FiGrid className="text-blue-600" />
       Browse by Category
     </h2>
-    <button
-      onClick={onNavigate}
+    <Link
+      href="/categories"
       className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2 group"
     >
       View All
       <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-    </button>
+    </Link>
   </div>
 );
 
@@ -28,7 +27,7 @@ const CategoryLoading = () => (
   </div>
 );
 
-const CategoryEmpty = ({ onNavigate }) => (
+const CategoryEmpty = () => (
   <div className="text-center py-16 bg-white rounded-3xl border border-dashed border-gray-200">
     <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
       <FiFolder className="w-12 h-12 text-blue-200" />
@@ -39,13 +38,12 @@ const CategoryEmpty = ({ onNavigate }) => (
     <p className="text-gray-500 mb-8 max-w-sm mx-auto">
       Categories will appear here once articles are published.
     </p>
-    <button
-      onClick={onNavigate}
-      className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/10 flex items-center gap-2 mx-auto active:scale-95"
+    <Link
+      href="/categories"
+      className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/10 gap-2 mx-auto active:scale-95"
     >
-      <FiPlus className="w-4 h-4" />
       Explore All
-    </button>
+    </Link>
   </div>
 );
 
@@ -64,9 +62,6 @@ const CategoryList = ({ categories }) => (
 );
 
 export default function Categories({ categories, isLoading }) {
-  const router = useRouter();
-  const handleViewAll = () => router.push("/categories");
-
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -87,11 +82,11 @@ export default function Categories({ categories, isLoading }) {
                  <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
                   Browse by Category
                 </h2>
-                <CategoryEmpty onNavigate={handleViewAll} />
+                <CategoryEmpty />
               </>
             ) : (
               <>
-                <CategoryHeader onNavigate={handleViewAll} />
+                <CategoryHeader />
                 <CategoryList categories={categories} />
               </>
             )}

@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 import commonApi from "@/api";
 import { Article } from "@/components/Articles/types/articlesTypes";
 
-export const useCategoryArticles = (categorySlug: string) => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export const useCategoryArticles = (categorySlug: string, initialData?: Article[]) => {
+  const [articles, setArticles] = useState<Article[]>(initialData || []);
+  const [isLoading, setIsLoading] = useState(!initialData);
   const [error, setError] = useState<Error | null>(null);
 
   const fetchCategoryArticles = useCallback(async () => {
@@ -41,8 +41,10 @@ export const useCategoryArticles = (categorySlug: string) => {
   }, [categorySlug]);
 
   useEffect(() => {
-    fetchCategoryArticles();
-  }, [fetchCategoryArticles]);
+    if (!initialData || initialData.length === 0) {
+      fetchCategoryArticles();
+    }
+  }, [fetchCategoryArticles, initialData]);
 
   return {
     articles,

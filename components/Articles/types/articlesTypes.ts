@@ -25,3 +25,11 @@ export interface Article {
   seoAuthor?: string;
   seoOgImage?: string;
 }
+
+export interface PaginationInfo {
+  currentPage: number;
+  totalPages: number;
+  totalArticles: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}

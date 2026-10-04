@@ -10,16 +10,25 @@ import ArticleDetailSkeleton from "./ArticleDetailSkeleton";
 import { useState, useEffect } from "react";
 import { Article } from "@/components/Articles/types/articlesTypes";
 
-const ArticleDetailComponent = ({ initialArticle }: { initialArticle?: Article | null }) => {
+const ArticleDetailComponent = ({ 
+  initialArticle,
+  initialCategoryArticles = []
+}: { 
+  initialArticle?: Article | null;
+  initialCategoryArticles?: Article[];
+}) => {
   const params = useParams();
   const slug = params.slug as string;
   
   const { article, isLoading: articleLoading } = useArticleDetail(slug, initialArticle);
   const { articles: categoryArticles, isLoading: categoryLoading } = useCategoryArticles(
-    typeof article?.category === 'string' ? article.category.toLowerCase() : article?.category?.slug || ""
+    typeof article?.category === 'string' ? article.category.toLowerCase() : article?.category?.slug || "",
+    initialCategoryArticles
   );
   
-  const [relatedArticles, setRelatedArticles] = useState<Article[]>([]);
+  const [relatedArticles, setRelatedArticles] = useState<Article[]>(
+    initialCategoryArticles.length > 0 ? initialCategoryArticles.slice(0, 3) : []
+  );
 
   useEffect(() => {
     if (Array.isArray(categoryArticles) && categoryArticles.length > 0) {

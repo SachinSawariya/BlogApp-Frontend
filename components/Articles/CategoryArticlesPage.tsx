@@ -12,11 +12,11 @@ import {
   FiList,
 } from "react-icons/fi";
 import { useState } from "react";
-import { Article } from "./types/articlesTypes";
+import { Article, PaginationInfo } from "./types/articlesTypes";
 
 interface CategoryArticlesPageProps {
   slug: string;
-  initialData?: { articles: Article[]; pagination: any };
+  initialData?: { articles: Article[]; pagination: PaginationInfo };
 }
 
 const CategoryArticlesPageComponent = ({ slug, initialData }: CategoryArticlesPageProps) => {

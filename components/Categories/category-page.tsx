@@ -2,16 +2,16 @@
 import { FiSearch, FiAlertCircle, FiFilter, FiTrendingUp, FiFolder } from "react-icons/fi";
 import CategoryCard from "@/shared/Card/CategoryCard";
 import CategoryCardSkeleton from "@/shared/Skeleton/CategoryCardSkeleton";
-import { useCategory } from "./hooks/useCategory";
+import { useCategory, Category } from "./hooks/useCategory";
 
-export default function CategoriesPageComponents() {
+export default function CategoriesPageComponents({ initialCategories }: { initialCategories?: Category[] }) {
   const { 
     categories, 
     isLoading, 
     error, 
     searchQuery, 
     setSearchQuery 
-  } = useCategory();
+  } = useCategory({ initialCategories });
 
   // Filter categories based on search
   const filteredCategories = categories.filter(category =>
