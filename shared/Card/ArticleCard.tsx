@@ -118,7 +118,7 @@ const ArticleCard = ({
     <div
       className={`${
         actualViewMode === "grid"
-          ? "bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
+          ? "h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
           : "bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden transition-all duration-300 cursor-pointer transform hover:scale-[1.02] group"
       } ${className}`}
       onClick={handleClick}
@@ -154,7 +154,7 @@ const ArticleCard = ({
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4 pointer-events-none">
               <div className="flex space-x-3 text-white w-full justify-between pointer-events-auto">
                 <div className="flex space-x-3">
-                  <button
+                  {/* <button
                     onClick={handleLike}
                     className="flex items-center space-x-1 hover:text-red-400 transition-colors bg-white/20 backdrop-blur-sm px-2 py-1 rounded-lg"
                     aria-label={
@@ -173,7 +173,7 @@ const ArticleCard = ({
                     <span className="text-xs font-medium">
                       {formatNumber(comments)}
                     </span>
-                  </div>
+                  </div> */}
                   {views > 0 && (
                     <div className="flex items-center space-x-1 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-lg">
                       <FiEye className="w-4 h-4" />
@@ -194,7 +194,7 @@ const ArticleCard = ({
             </div>
           </div>
 
-          <div className="p-6">
+          <div className="p-6 flex flex-col flex-grow">
             <div className="flex justify-between items-start mb-3">
               <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition-colors">
                 {category}
@@ -212,20 +212,20 @@ const ArticleCard = ({
             </h3>
 
             <div className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
-              <div dangerouslySetInnerHTML={{ __html: excerpt || '' }} />
+              {typeof excerpt === 'string' ? excerpt.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ') : excerpt}
             </div>
 
             {/* Stats bar */}
-            <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+            <div className="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
               <div className="flex items-center space-x-3 text-xs text-gray-500">
-                <span className="flex items-center">
+                {/* <span className="flex items-center">
                   <FiHeart className="w-3.5 h-3.5 mr-1" />
                   {formatNumber(currentLikes)}
                 </span>
                 <span className="flex items-center">
                   <FiMessageSquare className="w-3.5 h-3.5 mr-1" />
                   {formatNumber(comments)}
-                </span>
+                </span> */}
                 {views > 0 && (
                   <span className="flex items-center">
                     <FiEye className="w-3.5 h-3.5 mr-1" />
@@ -287,14 +287,14 @@ const ArticleCard = ({
               </h3>
 
               <div className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
-                <div dangerouslySetInnerHTML={{ __html: excerpt || '' }} />
+                {typeof excerpt === 'string' ? excerpt.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ') : excerpt}
               </div>
             </div>
 
             {/* Footer with interactions */}
-            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+            <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
               <div className="flex items-center space-x-4 text-sm text-gray-500">
-                <button
+                {/* <button
                   onClick={handleLike}
                   className="flex items-center space-x-1 hover:text-red-500 transition-colors"
                   aria-label={
@@ -309,7 +309,7 @@ const ArticleCard = ({
                 <div className="flex items-center space-x-1">
                   <FiMessageSquare className="w-4 h-4" />
                   <span>{formatNumber(comments)}</span>
-                </div>
+                </div> */}
                 {views > 0 && (
                   <div className="flex items-center space-x-1">
                     <FiEye className="w-4 h-4" />
