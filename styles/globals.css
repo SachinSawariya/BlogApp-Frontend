@@ -24,6 +24,14 @@ button {
   cursor: pointer !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+h1[id], h2[id], h3[id], h4[id] {
+  scroll-margin-top: 6rem;
+}
+
 /* body {
   background: var(--background);
   color: var(--foreground);

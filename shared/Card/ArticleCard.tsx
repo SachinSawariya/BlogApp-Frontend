@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   FiClock,
@@ -24,13 +25,12 @@ interface ArticleCardProps {
   comments?: number;
   views?: number;
   className?: string;
-  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
+  onClick?: (e: MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
   children?: ReactNode;
   viewMode?: "grid" | "list";
 }
 
 const ArticleCard = ({
-  id,
   title,
   category,
   slug,
@@ -90,12 +90,15 @@ const ArticleCard = ({
     } else {
       // Fallback for browsers that don't support Web Share API
       navigator.clipboard.writeText(window.location.href);
-      // You could show a toast notification here
     }
   };
 
-  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  const handleClick = (e: MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+    // If click originated from a link or button, let default behavior happen
+    const target = e.target as HTMLElement;
+    if (target.closest('a') || target.closest('button')) {
+      return;
+    }
 
     if (onClick) {
       onClick(e);
@@ -115,41 +118,43 @@ const ArticleCard = ({
     <div
       className={`${
         actualViewMode === "grid"
-          ? "bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
+          ? "h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 group"
           : "bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden transition-all duration-300 cursor-pointer transform hover:scale-[1.02] group"
       } ${className}`}
       onClick={handleClick}
       role="article"
       tabIndex={0}
       onKeyDown={(e) =>
-        (e.key === "Enter" || e.key === " ") && handleClick(e as any)
+        (e.key === "Enter" || e.key === " ") && handleClick(e)
       }
     >
       {actualViewMode === "grid" ? (
         <>
           <div className="relative h-48 bg-gray-100 overflow-hidden">
-            {imageUrl && !imageError ? (
-              <img
-                src={imageUrl}
-                alt={title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-                onError={() => setImageError(true)}
-              />
-            ) : (
-              <div
-                className="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold p-4 text-center"
-                aria-label={`Category: ${category}`}
-              >
-                {category}
-              </div>
-            )}
+            <Link href={`/articles/${slug}`} className="block w-full h-full" tabIndex={-1} aria-label={title}>
+              {imageUrl && !imageError ? (
+                <img
+                  src={imageUrl}
+                  alt={title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <div
+                  className="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold p-4 text-center"
+                  aria-label={`Category: ${category}`}
+                >
+                  {category}
+                </div>
+              )}
+            </Link>
 
             {/* Overlay with actions on hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4">
-              <div className="flex space-x-3 text-white w-full justify-between">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4 pointer-events-none">
+              <div className="flex space-x-3 text-white w-full justify-between pointer-events-auto">
                 <div className="flex space-x-3">
-                  <button
+                  {/* <button
                     onClick={handleLike}
                     className="flex items-center space-x-1 hover:text-red-400 transition-colors bg-white/20 backdrop-blur-sm px-2 py-1 rounded-lg"
                     aria-label={
@@ -168,7 +173,7 @@ const ArticleCard = ({
                     <span className="text-xs font-medium">
                       {formatNumber(comments)}
                     </span>
-                  </div>
+                  </div> */}
                   {views > 0 && (
                     <div className="flex items-center space-x-1 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-lg">
                       <FiEye className="w-4 h-4" />
@@ -189,7 +194,7 @@ const ArticleCard = ({
             </div>
           </div>
 
-          <div className="p-6">
+          <div className="p-6 flex flex-col flex-grow">
             <div className="flex justify-between items-start mb-3">
               <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition-colors">
                 {category}
@@ -201,24 +206,26 @@ const ArticleCard = ({
             </div>
 
             <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">
-              {title}
+              <Link href={`/articles/${slug}`} className="hover:text-blue-600 transition-colors">
+                {title}
+              </Link>
             </h3>
 
             <div className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
-              <div dangerouslySetInnerHTML={{ __html: excerpt || '' }} />
+              {typeof excerpt === 'string' ? excerpt.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ') : excerpt}
             </div>
 
             {/* Stats bar */}
-            <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+            <div className="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
               <div className="flex items-center space-x-3 text-xs text-gray-500">
-                <span className="flex items-center">
+                {/* <span className="flex items-center">
                   <FiHeart className="w-3.5 h-3.5 mr-1" />
                   {formatNumber(currentLikes)}
                 </span>
                 <span className="flex items-center">
                   <FiMessageSquare className="w-3.5 h-3.5 mr-1" />
                   {formatNumber(comments)}
-                </span>
+                </span> */}
                 {views > 0 && (
                   <span className="flex items-center">
                     <FiEye className="w-3.5 h-3.5 mr-1" />
@@ -227,10 +234,13 @@ const ArticleCard = ({
                 )}
               </div>
 
-              <button className="text-blue-600 hover:text-blue-700 font-medium text-xs flex items-center group opacity-0 group-hover:opacity-100 transition-opacity">
+              <Link
+                href={`/articles/${slug}`}
+                className="text-blue-600 hover:text-blue-700 font-medium text-xs flex items-center group opacity-0 group-hover:opacity-100 transition-opacity"
+              >
                 Read More
                 <FiArrowLeft className="ml-1 w-3.5 h-3.5 rotate-180 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
 
             {children}
@@ -240,19 +250,21 @@ const ArticleCard = ({
         <div className="flex flex-col md:flex-row h-full">
           {/* Left Side - Image */}
           <div className="md:w-1/3 lg:w-2/5 h-48 md:h-auto relative overflow-hidden">
-            {imageUrl && !imageError ? (
-              <img
-                src={imageUrl}
-                alt={title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-                onError={() => setImageError(true)}
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold p-4 text-center">
-                {category}
-              </div>
-            )}
+            <Link href={`/articles/${slug}`} className="block w-full h-full" tabIndex={-1} aria-label={title}>
+              {imageUrl && !imageError ? (
+                <img
+                  src={imageUrl}
+                  alt={title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold p-4 text-center">
+                  {category}
+                </div>
+              )}
+            </Link>
           </div>
 
           {/* Right Side - Content */}
@@ -269,18 +281,20 @@ const ArticleCard = ({
               </div>
 
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">
-                {title}
+                <Link href={`/articles/${slug}`} className="hover:text-blue-600 transition-colors">
+                  {title}
+                </Link>
               </h3>
 
               <div className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
-                <div dangerouslySetInnerHTML={{ __html: excerpt || '' }} />
+                {typeof excerpt === 'string' ? excerpt.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ') : excerpt}
               </div>
             </div>
 
             {/* Footer with interactions */}
-            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+            <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
               <div className="flex items-center space-x-4 text-sm text-gray-500">
-                <button
+                {/* <button
                   onClick={handleLike}
                   className="flex items-center space-x-1 hover:text-red-500 transition-colors"
                   aria-label={
@@ -295,7 +309,7 @@ const ArticleCard = ({
                 <div className="flex items-center space-x-1">
                   <FiMessageSquare className="w-4 h-4" />
                   <span>{formatNumber(comments)}</span>
-                </div>
+                </div> */}
                 {views > 0 && (
                   <div className="flex items-center space-x-1">
                     <FiEye className="w-4 h-4" />
@@ -311,10 +325,13 @@ const ArticleCard = ({
                 </button>
               </div>
 
-              <button className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center group">
+              <Link
+                href={`/articles/${slug}`}
+                className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center group"
+              >
                 Read More
                 <FiArrowLeft className="ml-2 w-4 h-4 rotate-180 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

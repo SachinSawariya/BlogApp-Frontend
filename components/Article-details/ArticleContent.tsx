@@ -4,7 +4,10 @@ import Link from "next/link";
 import { FiCalendar, FiClock, FiUser, FiHeart, FiBookmark } from "react-icons/fi";
 import { Article } from "@/components/Articles/types/articlesTypes";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useMemo } from "react";
+import { processArticleContent } from "@/utils/contentProcessor";
+import TableOfContents from "./TableOfContents";
+import { formatDate } from "@/utils/dateHelpers";
 
 interface ArticleContentProps {
   article: Article | null;
@@ -12,6 +15,9 @@ interface ArticleContentProps {
 }
 
 export default function ArticleContent({ article, isLoading }: ArticleContentProps) {
+  const { processedHtml, headings } = useMemo(() => {
+    return processArticleContent(article?.content || "");
+  }, [article?.content]);
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-sm p-8">
@@ -115,9 +121,7 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
               <span className="flex items-center space-x-1.5">
                 <FiCalendar className="w-4 h-4 text-blue-500" />
                 <span className="font-medium">
-                  {article.createdAt 
-                    ? new Date(article.createdAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })
-                    : 'Recently published'}
+                  {formatDate(article.createdAt)}
                 </span>
               </span>
             </div>
@@ -125,17 +129,20 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
         </div>
 
         <div className="flex items-center space-x-3">
-           <button className="group flex items-center space-x-2 px-6 py-3 bg-white border border-gray-200 rounded-2xl text-gray-700 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all duration-300 shadow-sm hover:shadow-md active:scale-95">
-             <FiHeart className="w-5 h-5 transition-transform group-hover:scale-110" />
-             <span className="font-bold text-[15px]">{article.likes}</span>
-           </button>
+          <button className="group flex items-center space-x-2 px-6 py-3 bg-white border border-gray-200 rounded-2xl text-gray-700 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all duration-300 shadow-sm hover:shadow-md active:scale-95">
+            <FiHeart className="w-5 h-5 transition-transform group-hover:scale-110" />
+            <span className="font-bold text-[15px]">{article.likes}</span>
+          </button>
         </div>
       </div>
 
       {/* Article Content */}
       <div className="px-8 py-4 md:px-12 md:py-6 lg:px-16 lg:py-8">
+        {/* Inline Table of Contents for easy navigation and mobile readers */}
+        <TableOfContents headings={headings} variant="inline" />
+
         <div className="prose prose-blue lg:prose-xl max-w-none text-gray-800 leading-[1.9] font-normal selection:bg-blue-100">
-          <div dangerouslySetInnerHTML={{ __html: article.content || '' }} />
+          <div dangerouslySetInnerHTML={{ __html: processedHtml || article.content || '' }} />
         </div>
 
         {/* Tags & Footer */}

@@ -26,7 +26,6 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
     originalStatus,
     handleChange,
     handleSubmit,
-    setFormData,
     setStatus,
     resetKey,
     router,
@@ -126,7 +125,7 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
               id="categoryId"
               options={categories.map(c => ({ id: c._id, name: c.name }))}
               value={formData.categoryId}
-              onChange={(val) => handleChange({ target: { name: 'categoryId', value: val } } as any)}
+              onChange={(val) => handleChange({ target: { name: 'categoryId', value: val } } as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)}
               placeholder="Select Category"
               icon={<FiTag />}
             />

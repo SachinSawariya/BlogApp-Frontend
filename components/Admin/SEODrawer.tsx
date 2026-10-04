@@ -2,12 +2,17 @@
 
 import { FiX, FiSave, FiAlertCircle } from 'react-icons/fi';
 import { useSEODrawer } from './hooks/useSEODrawer';
-import { Article } from '@/components/Articles/types/articlesTypes';
+
+interface SEODrawerArticle {
+  _id: string;
+  title: string;
+  slug: string;
+}
 
 interface SEODrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  article: Article | null;
+  article: SEODrawerArticle | null;
   onSuccess: () => void;
 }
 
@@ -81,26 +86,58 @@ export const SEODrawer = ({ isOpen, onClose, article, onSuccess }: SEODrawerProp
             </div>
           )}
 
+          {/* Google Search Live Preview */}
+          <div className="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 space-y-1.5 shadow-sm">
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
+              Google Search Snippet Preview
+            </span>
+            <div className="flex items-center gap-1.5 text-xs text-gray-700">
+              <div className="w-3.5 h-3.5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[8px] font-black">G</div>
+              <span className="text-gray-700 font-medium">gyanvora.vercel.app</span>
+              <span className="text-gray-400">› articles › {article?.slug || 'slug'}</span>
+            </div>
+            <h4 className="text-blue-700 font-medium text-base leading-tight hover:underline cursor-pointer">
+              {formData.seoTitle || article?.title || "Article Title Preview"} | Gyanvora
+            </h4>
+            <p className="text-gray-600 text-xs line-clamp-2 leading-relaxed">
+              {formData.seoDescription || "Preview of your search engine snippet description..."}
+            </p>
+          </div>
+
           <div className="space-y-2">
-            <label className="text-sm font-bold text-gray-700 block">SEO Title</label>
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-bold text-gray-700 block">SEO Title</label>
+              <span className={`text-xs font-semibold ${
+                formData.seoTitle.length > 60 ? 'text-amber-600' : 'text-gray-400'
+              }`}>
+                {formData.seoTitle.length} / 60 chars
+              </span>
+            </div>
             <input 
               type="text"
               name="seoTitle"
               value={formData.seoTitle}
               onChange={handleChange}
-              placeholder="Custom title for search engines"
+              placeholder="Custom title for search engines (Recommended: 50-60 chars)"
               className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-gray-900"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-bold text-gray-700 block">SEO Description</label>
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-bold text-gray-700 block">SEO Description</label>
+              <span className={`text-xs font-semibold ${
+                formData.seoDescription.length > 160 ? 'text-amber-600' : 'text-gray-400'
+              }`}>
+                {formData.seoDescription.length} / 160 chars
+              </span>
+            </div>
             <textarea 
               name="seoDescription"
               value={formData.seoDescription}
               onChange={handleChange}
               rows={4}
-              placeholder="Meta description for search results"
+              placeholder="Meta description for search results (Recommended: 120-160 chars)"
               className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-gray-900 resize-none"
             />
           </div>

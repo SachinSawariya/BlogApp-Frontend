@@ -1,8 +1,9 @@
 import Overview from "@/components/Home";
 import { Metadata } from "next";
 import commonApi from "@/api";
+import { Article } from "@/components/Articles/types/articlesTypes";
 import { transformArticles } from "@/utils/articleTransformer";
-import { transformCategories } from "@/utils/categoryTransformer";
+import { transformCategories, Category } from "@/utils/categoryTransformer";
 
 export const metadata: Metadata = {
   title: "Gyanvora | Home",
@@ -20,17 +21,16 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 0;
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export default async function Home() {
-  let initialFeatured: any[] = [];
-  let initialCategories: any[] = [];
+  let initialFeatured: Article[] = [];
+  let initialCategories: Category[] = [];
 
   try {
     const [featuredRes, categoriesRes] = await Promise.allSettled([
-      commonApi({ action: "getFeaturedArticles", config: { cache: "no-store" } }),
-      commonApi({ action: "getTopCategories", config: { cache: "no-store" } }),
+      commonApi({ action: "getFeaturedArticles", config: { next: { revalidate: 300 } } }),
+      commonApi({ action: "getTopCategories", config: { next: { revalidate: 300 } } }),
     ]);
 
     if (featuredRes.status === "fulfilled") {

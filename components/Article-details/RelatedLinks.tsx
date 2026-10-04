@@ -1,6 +1,9 @@
 import { FiExternalLink, FiTag, FiTrendingUp, FiBookOpen, FiClock } from "react-icons/fi";
 import { Article } from "@/components/Articles/types/articlesTypes";
 import Link from "next/link";
+import { useMemo } from "react";
+import { processArticleContent } from "@/utils/contentProcessor";
+import TableOfContents from "./TableOfContents";
 
 interface RelatedLinksProps {
   article: Article | null;
@@ -8,6 +11,10 @@ interface RelatedLinksProps {
 }
 
 export default function RelatedLinks({ article, relatedArticles = [] }: RelatedLinksProps) {
+  const { headings } = useMemo(() => {
+    return processArticleContent(article?.content || "");
+  }, [article?.content]);
+
   if (!article) {
     return (
       <div className="bg-white rounded-2xl shadow-sm p-6">
@@ -29,6 +36,10 @@ export default function RelatedLinks({ article, relatedArticles = [] }: RelatedL
         </h3>
         
         <div className="space-y-10">
+          {/* Table of Contents in sidebar */}
+          {headings.length >= 2 && (
+            <TableOfContents headings={headings} variant="sidebar" />
+          )}
           {/* Article Category */}
           <div className="group">
             <div className="flex items-center space-x-3 mb-4">

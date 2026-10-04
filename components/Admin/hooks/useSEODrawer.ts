@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import commonApi from '@/api';
-import { Article } from '@/components/Articles/types/articlesTypes';
 
 interface SEODrawerData {
   seoTitle: string;
@@ -22,8 +21,14 @@ interface UseSEODrawerReturn {
   handleSave: () => Promise<void>;
 }
 
+export interface SEODrawerArticleTarget {
+  _id: string;
+  title: string;
+  slug: string;
+}
+
 export const useSEODrawer = (
-  article: Article | null,
+  article: SEODrawerArticleTarget | null,
   isOpen: boolean,
   onSuccess: () => void,
   onClose: () => void
@@ -98,9 +103,15 @@ export const useSEODrawer = (
       });
       onSuccess();
       onClose();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error saving SEO data:', err);
-      setError(err?.response?.data?.message || 'Failed to save SEO data');
+      const message =
+        err && typeof err === 'object' && 'response' in err
+          ? (err as { response?: { data?: { message?: string } } }).response?.data?.message
+          : err instanceof Error
+          ? err.message
+          : 'Failed to save SEO data';
+      setError(message || 'Failed to save SEO data');
     } finally {
       setIsSaving(false);
     }

@@ -1,7 +1,9 @@
 import CategoryArticlesPageComponent from "@/components/Articles/CategoryArticlesPage";
 import { Metadata } from "next";
 import commonApi from "@/api";
-import { Article } from "@/components/Articles/types/articlesTypes";
+import { Article, PaginationInfo } from "@/components/Articles/types/articlesTypes";
+
+export const revalidate = 60;
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CategoryArticlesPage({ params }: Props) {
   const { slug } = await params;
   const categoryName = formatSlug(slug);
-  let initialData: { articles: Article[]; pagination: any } | undefined = undefined;
+  let initialData: { articles: Article[]; pagination: PaginationInfo } | undefined = undefined;
 
   try {
     const response = await commonApi({

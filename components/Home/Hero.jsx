@@ -1,13 +1,7 @@
-"use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FiArrowRight, FiBookOpen, FiPlusCircle } from "react-icons/fi";
 
 export default function Hero() {
-  const router = useRouter();
-
-  const handleExplore = () => router.push("/articles");
-  const handleCreate = () => router.push("/admin/login");
-
   return (
     <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-24 lg:py-32 overflow-hidden">
       {/* Background Decor */}
@@ -24,22 +18,22 @@ export default function Hero() {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
-          <button 
-            onClick={handleExplore}
+          <Link 
+            href="/articles"
             className="group bg-white text-blue-700 hover:bg-blue-50 px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 transition-all duration-300 shadow-xl shadow-blue-900/20 hover:scale-105 active:scale-95 cursor-pointer"
           >
             <FiBookOpen className="text-xl" />
             Explore Articles
             <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          </Link>
           
-          <button 
-            onClick={handleCreate}
+          <Link 
+            href="/admin/login"
             className="group bg-yellow-400 text-gray-900 hover:bg-yellow-300 px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 transition-all duration-300 shadow-xl shadow-yellow-500/10 hover:scale-105 active:scale-95 cursor-pointer"
           >
             <FiPlusCircle className="text-xl" />
             Write Article
-          </button>
+          </Link>
         </div>
       </div>
       

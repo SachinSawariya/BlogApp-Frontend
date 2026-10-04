@@ -1,40 +1,10 @@
 "use client";
-import { useState } from 'react';
-import { FiMail, FiMapPin, FiPhone, FiSend, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
-import commonApi from '@/api';
+
+import { FiMail, FiMapPin, FiPhone, FiSend, FiCheckCircle, FiAlertCircle } from "react-icons/fi";
+import { useContactForm } from "./hooks/useContactForm";
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('submitting');
-    setErrorMsg('');
-    try {
-      await commonApi({
-        action: 'saveContactFormMsgToDB',
-        data: formData,
-      });
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setStatus('idle'), 4000);
-    } catch (err: any) {
-      setErrorMsg(err?.message || 'Something went wrong. Please try again.');
-      setStatus('error');
-    }
-  };
+  const { formData, status, errorMsg, handleChange, handleSubmit } = useContactForm();
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">

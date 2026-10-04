@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 interface PaginationProps {
@@ -79,14 +80,27 @@ const SharedPagination = ({
       {/* Pagination controls */}
       <div className="flex items-center space-x-1">
         {/* Previous Button */}
-        <button
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1 || isLoading}
-          className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          <FiChevronLeft className="w-4 h-4 mr-1" />
-          Back
-        </button>
+        {currentPage > 1 && !isLoading ? (
+          <Link
+            href={`?page=${currentPage - 1}`}
+            onClick={(e) => {
+              e.preventDefault();
+              onPageChange(currentPage - 1);
+            }}
+            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50 hover:text-gray-900 transition-colors"
+          >
+            <FiChevronLeft className="w-4 h-4 mr-1" />
+            Back
+          </Link>
+        ) : (
+          <button
+            disabled
+            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-lg opacity-50 cursor-not-allowed"
+          >
+            <FiChevronLeft className="w-4 h-4 mr-1" />
+            Back
+          </button>
+        )}
 
         {/* Page Numbers */}
         <div className="flex items-center">
@@ -97,31 +111,47 @@ const SharedPagination = ({
                   ...
                 </span>
               ) : (
-                <button
-                  onClick={() => onPageChange(page as number)}
-                  disabled={isLoading}
-                  className={`px-3 py-2 text-sm font-medium transition-colors ${
+                <Link
+                  href={`?page=${page}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onPageChange(page as number);
+                  }}
+                  className={`px-3 py-2 text-sm font-medium transition-colors inline-block ${
                     currentPage === page
                       ? "bg-blue-600 text-white border border-blue-600"
                       : "text-gray-700 bg-white border-t border-b border-gray-300 hover:bg-gray-50 hover:text-gray-900"
-                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+                  }`}
                 >
                   {page}
-                </button>
+                </Link>
               )}
             </div>
           ))}
         </div>
 
         {/* Next Button */}
-        <button
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages || isLoading}
-          className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          Next
-          <FiChevronRight className="w-4 h-4 ml-1" />
-        </button>
+        {currentPage < totalPages && !isLoading ? (
+          <Link
+            href={`?page=${currentPage + 1}`}
+            onClick={(e) => {
+              e.preventDefault();
+              onPageChange(currentPage + 1);
+            }}
+            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50 hover:text-gray-900 transition-colors"
+          >
+            Next
+            <FiChevronRight className="w-4 h-4 ml-1" />
+          </Link>
+        ) : (
+          <button
+            disabled
+            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-lg opacity-50 cursor-not-allowed"
+          >
+            Next
+            <FiChevronRight className="w-4 h-4 ml-1" />
+          </button>
+        )}
       </div>
 
       {/* Results per page selector */}

@@ -36,10 +36,20 @@ export const getCategoryIcon = (categoryName: string): string => {
   }
 };
 
+export interface RawApiCategory {
+  name?: string;
+  title?: string;
+  articleCount?: number;
+  count?: number;
+  slug?: string;
+  icon?: string;
+  [key: string]: unknown;
+}
+
 /**
  * Transforms category data from the API format to the frontend Category interface.
  */
-export const transformCategory = (apiCategory: any): Category => {
+export const transformCategory = (apiCategory?: RawApiCategory | null): Category => {
   if (!apiCategory) return {} as Category;
 
   const name = apiCategory.name || apiCategory.title || 'Unknown';
@@ -54,7 +64,7 @@ export const transformCategory = (apiCategory: any): Category => {
 /**
  * Transforms an array of API category objects.
  */
-export const transformCategories = (apiCategories: any[]): Category[] => {
+export const transformCategories = (apiCategories: RawApiCategory[]): Category[] => {
   if (!Array.isArray(apiCategories)) return [];
   return apiCategories.map(transformCategory);
 };

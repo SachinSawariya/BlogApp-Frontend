@@ -1,21 +1,25 @@
 "use client";
 
 import Link from 'next/link';
-import { FiEdit2, FiTrash2, FiEye, FiClock, FiCheckCircle, FiMoreVertical, FiLayout, FiGlobe, FiRefreshCw } from 'react-icons/fi';
+import { FiEdit2, FiTrash2, FiEye, FiClock, FiCheckCircle, FiLayout, FiGlobe, FiRefreshCw } from 'react-icons/fi';
 import { useManageArticles } from './hooks/useManageArticles';
 import { ConfirmationModal } from '@/shared/Modal/ConfirmationModal';
 import { useState } from 'react';
 import { SEODrawer } from './SEODrawer';
-import { Article } from '@/components/Articles/types/articlesTypes';
 
+interface ArticleSummary {
+  _id: string;
+  title: string;
+  slug: string;
+}
 
 export const ManageArticles = () => {
-  const { articles, isLoading, error, handleDelete, handleIndexUrl, refreshArticles } = useManageArticles();
+  const { articles, isLoading, error, handleDelete, handleIndexUrl, indexingSlug, refreshArticles } = useManageArticles();
   const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string | null }>({
     isOpen: false,
     id: null
   });
-  const [seoDrawer, setSeoDrawer] = useState<{ isOpen: boolean; article: Article | null; isLoading: boolean }>({
+  const [seoDrawer, setSeoDrawer] = useState<{ isOpen: boolean; article: ArticleSummary | null; isLoading: boolean }>({
     isOpen: false,
     article: null,
     isLoading: false
@@ -119,7 +123,7 @@ export const ManageArticles = () => {
                       <FiEye size={18} />
                     </Link>
                     <button 
-                      onClick={() => setSeoDrawer({ isOpen: true, article: article as any, isLoading: false })}
+                      onClick={() => setSeoDrawer({ isOpen: true, article, isLoading: false })}
                       className="p-2 text-gray-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all"
                       title="SEO Settings"
                     >
@@ -127,10 +131,11 @@ export const ManageArticles = () => {
                     </button>
                     <button 
                       onClick={() => handleIndexUrl(article.slug)}
-                      className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all"
-                      title="Index with Google"
+                      disabled={indexingSlug === article.slug}
+                      className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all disabled:opacity-50 cursor-pointer"
+                      title={indexingSlug === article.slug ? "Sending indexing request to Google..." : "Index with Google"}
                     >
-                      <FiRefreshCw size={18} />
+                      <FiRefreshCw size={18} className={indexingSlug === article.slug ? "animate-spin text-green-600" : ""} />
                     </button>
                     <Link 
                       href={`/admin/edit/${article.slug}`}

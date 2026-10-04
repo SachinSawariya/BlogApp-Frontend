@@ -1,12 +1,6 @@
-"use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function CallToAction() {
-  const router = useRouter();
-
-  const handleBrowse = () => router.push("/articles");
-  const handleInTouch = () => router.push("/contact");
-
   return (
     <section className="py-24 bg-gradient-to-br from-indigo-700 via-blue-600 to-indigo-800 text-white relative overflow-hidden">
       {/* Background Decor */}
@@ -20,18 +14,18 @@ export default function CallToAction() {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-5 justify-center">
-          <button 
-            onClick={handleBrowse}
-            className="bg-white text-blue-700 hover:bg-blue-50 px-10 py-4 rounded-full font-bold text-lg shadow-xl shadow-blue-900/10 transition-all duration-300 transform hover:scale-105 active:scale-95"
+          <Link 
+            href="/articles"
+            className="bg-white text-blue-700 hover:bg-blue-50 px-10 py-4 rounded-full font-bold text-lg shadow-xl shadow-blue-900/10 transition-all duration-300 transform hover:scale-105 active:scale-95 text-center"
           >
             Browse All Articles
-          </button>
-          <button 
-            onClick={handleInTouch}
-            className="border-2 border-white/30 text-white hover:bg-white hover:text-indigo-900 px-10 py-4 rounded-full font-bold text-lg backdrop-blur-sm transition-all duration-300 transform hover:scale-105 active:scale-95"
+          </Link>
+          <Link 
+            href="/contact"
+            className="border-2 border-white/30 text-white hover:bg-white hover:text-indigo-900 px-10 py-4 rounded-full font-bold text-lg backdrop-blur-sm transition-all duration-300 transform hover:scale-105 active:scale-95 text-center"
           >
             Get In Touch
-          </button>
+          </Link>
         </div>
       </div>
     </section>

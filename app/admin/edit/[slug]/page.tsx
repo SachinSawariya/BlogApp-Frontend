@@ -7,7 +7,7 @@ import { FiChevronLeft } from 'react-icons/fi';
 import { useParams } from 'next/navigation';
 
 export default function EditArticlePage() {
-  const { user, isLoading, handleLogout } = useAdminDashboard();
+  const { user, isLoading } = useAdminDashboard();
   const params = useParams();
   const slug = params.slug as string;
 

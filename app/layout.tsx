@@ -39,6 +39,12 @@ export const metadata = {
     address: false,
     telephone: false,
   },
+  alternates: {
+    canonical: "https://gyanvora.vercel.app",
+    types: {
+      "application/rss+xml": "https://gyanvora.vercel.app/rss.xml",
+    },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -49,7 +55,7 @@ export const metadata = {
       "A comprehensive blog about AI, machine learning, and modern web development for developers.",
     images: [
       {
-        url: "/logo.svg",
+        url: "/images/sachin-pic.png",
         width: 1200,
         height: 630,
         alt: "Gyanvora - AI for Developers",
@@ -61,7 +67,7 @@ export const metadata = {
     title: "Gyanvora - AI for Developers",
     description:
       "A comprehensive blog about AI, machine learning, and modern web development for developers.",
-    images: ["/logo.svg"],
+    images: ["/images/sachin-pic.png"],
     creator: "@gyanvora",
   },
   manifest: "/manifest.json",

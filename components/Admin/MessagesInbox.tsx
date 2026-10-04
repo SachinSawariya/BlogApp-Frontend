@@ -1,59 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { FiMail, FiUser, FiClock, FiRefreshCw, FiInbox, FiAlertCircle, FiChevronDown, FiChevronUp } from "react-icons/fi";
-import commonApi from "@/api";
-
-interface ContactMessage {
-  _id: string;
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-  createdAt: string;
-}
-
-function timeAgo(dateStr: string) {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return "just now";
-  if (mins < 60) return `${mins}m ago`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  const days = Math.floor(hrs / 24);
-  return `${days}d ago`;
-}
+import { useMessagesInbox } from "./hooks/useMessagesInbox";
+import { timeAgo } from "@/utils/dateHelpers";
 
 export default function MessagesInbox() {
-  const [messages, setMessages] = useState<ContactMessage[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-
-  const fetchMessages = async () => {
-    setIsLoading(true);
-    setError("");
-    try {
-      const res = await commonApi({ action: "getAllMsg" });
-      // newest first
-      const sorted = (res.data || []).sort(
-        (a: ContactMessage, b: ContactMessage) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-      setMessages(sorted);
-    } catch (err: any) {
-      setError(err?.message || "Failed to load messages.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
-  const toggleExpand = (id: string) =>
-    setExpandedId((prev) => (prev === id ? null : id));
+  const {
+    messages,
+    isLoading,
+    error,
+    expandedId,
+    fetchMessages,
+    toggleExpand,
+  } = useMessagesInbox();
 
   /* ---- Loading state ---- */
   if (isLoading) {
