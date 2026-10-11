@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { FiSearch, FiLock } from "react-icons/fi";
 import { useAuth } from "@/context/AuthContext";
+import ThemeToggle from "@/shared/ThemeToggle/ThemeToggle";
 
 const navItems = [
   { name: 'Home', href: '/' },
@@ -49,12 +50,12 @@ const Header = () => {
   const isAdmin = user && user.role === 'admin';
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50" role="banner">
+    <header className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-sm sticky top-0 z-50 transition-colors duration-200" role="banner">
       <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center pl-4 md:pl-0">
             <Link href="/" className="flex items-center" aria-label="Gyanvora Home">
-              <span className="text-2xl font-bold text-blue-600" aria-label="Gyanvora Logo">
+              <span className="text-2xl font-bold text-blue-600 dark:text-blue-500" aria-label="Gyanvora Logo">
                 <span className="md:hidden">Gv</span>
                 <span className="hidden md:inline lg:hidden">Gv</span>
                 <span className="hidden lg:inline">Gyanvora</span>
@@ -71,13 +72,13 @@ const Header = () => {
                   href={item.href} 
                   className={`px-3 py-2 text-sm font-medium transition-colors ${
                     active 
-                      ? "text-blue-600 font-bold" 
-                      : "text-gray-700 hover:text-blue-600"
+                      ? "text-blue-600 dark:text-blue-400 font-bold" 
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
                 >
                   {item.name}
                   {active && (
-                    <div className="h-0.5 bg-blue-600 w-full mt-0.5 rounded-full" />
+                    <div className="h-0.5 bg-blue-600 dark:bg-blue-400 w-full mt-0.5 rounded-full" />
                   )}
                 </Link>
               );
@@ -88,8 +89,8 @@ const Header = () => {
                 href="/admin/dashboard" 
                 className={`flex items-center gap-1.5 px-3 py-2 text-sm font-bold transition-colors ${
                   pathname.startsWith('/admin') 
-                    ? "text-indigo-600" 
-                    : "text-gray-700 hover:text-indigo-600"
+                    ? "text-indigo-600 dark:text-indigo-400" 
+                    : "text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
                 }`}
               >
                 <FiLock className="mb-0.5" />
@@ -98,38 +99,35 @@ const Header = () => {
             )}
           </nav>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4 pr-3 sm:pr-0">
             <form onSubmit={handleSearch} className="relative" role="search">
               <label htmlFor="search-input" className="sr-only">Search articles</label>
               <input
                 id="search-input"
                 type="text"
                 placeholder="Search articles..."
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-full text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search articles"
               />
-              <FiSearch className="absolute left-3 top-2.5 text-gray-400" aria-hidden="true" />
+              <FiSearch className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500" aria-hidden="true" />
             </form>
-            
-            {/* For Future USE */}
-            {/* <div className="hidden md:flex items-center space-x-4">
-              <button 
-                onClick={() => router.push('/saved')}
-                className="p-2 text-gray-600 hover:text-blue-600"
-                aria-label="Saved articles"
-              >
-                <FiBookmark className="h-5 w-5" />
-              </button>
-            </div> */}
+
+            {/* Theme Toggle (Desktop & Tablet) */}
+            <div className="hidden sm:block">
+              <ThemeToggle variant="dropdown" />
+            </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center gap-1">
+              <div className="sm:hidden">
+                <ThemeToggle variant="icon-only" />
+              </div>
               <button 
                 type="button"
                 onClick={toggleMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
                 aria-expanded={isMenuOpen}
                 aria-controls="mobile-menu"
               >
@@ -150,8 +148,8 @@ const Header = () => {
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-lg`} id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+        <div className="px-4 pt-2 pb-4 space-y-1">
           {mobileNavItems.map((item) => {
             const active = isActive(item.href);
             return (
@@ -161,8 +159,8 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                   active 
-                    ? "text-blue-600 bg-blue-50" 
-                    : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                    ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 font-bold" 
+                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800"
                 }`}
               >
                 {item.name}
@@ -172,30 +170,21 @@ const Header = () => {
           
           {isAdmin && (
             <Link 
-              href="/admin/dashboard"
+              href="/admin/dashboard" 
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-bold transition-colors ${
                 pathname.startsWith('/admin') 
-                  ? "text-indigo-600 bg-indigo-50" 
-                  : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
+                  ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40" 
+                  : "text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-800"
               }`}
             >
               <FiLock /> Admin Portal
             </Link>
           )}
 
-          {/* For Future USE */}
-          {/* <div className="pt-4 pb-3 border-t border-gray-200">
-            <div className="mt-3 space-y-1">
-              <Link 
-                href="/saved" 
-                onClick={() => setIsMenuOpen(false)}
-                className="block px-4 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-100"
-              >
-                Saved Articles
-              </Link>
-            </div>
-          </div> */}
+          <div className="pt-2">
+            <ThemeToggle variant="mobile" />
+          </div>
         </div>
       </div>
     </header>

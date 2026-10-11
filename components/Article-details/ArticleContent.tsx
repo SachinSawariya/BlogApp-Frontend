@@ -6,7 +6,6 @@ import { Article } from "@/components/Articles/types/articlesTypes";
 import Image from "next/image";
 import { useMemo } from "react";
 import { processArticleContent } from "@/utils/contentProcessor";
-import TableOfContents from "./TableOfContents";
 import { formatDate } from "@/utils/dateHelpers";
 
 interface ArticleContentProps {
@@ -15,9 +14,10 @@ interface ArticleContentProps {
 }
 
 export default function ArticleContent({ article, isLoading }: ArticleContentProps) {
-  const { processedHtml, headings } = useMemo(() => {
+  const { processedHtml } = useMemo(() => {
     return processArticleContent(article?.content || "");
   }, [article?.content]);
+  
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-sm p-8">
@@ -45,7 +45,7 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
   }
 
   return (
-    <article className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-gray-100/80 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
+    <article className="bg-white dark:bg-gray-900 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-black/50 overflow-hidden border border-gray-100/80 dark:border-gray-800 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
       {/* Article Header & Image Section */}
       <div className="relative group/cover">
         {/* Featured Image */}
@@ -101,7 +101,7 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
       </div>
 
       {/* Author & Meta Bar */}
-      <div className="px-8 md:px-12 py-8 border-b border-gray-100 bg-gray-50/30 flex flex-wrap items-center justify-between gap-6">
+      <div className="px-8 md:px-12 py-8 border-b border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-800/40 flex flex-wrap items-center justify-between gap-6 transition-colors">
         <div className="flex items-center space-x-4">
           <div className="relative w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-500/10 overflow-hidden transform hover:rotate-3 transition-transform duration-300">
             {article.authorAvatar ? (
@@ -116,8 +116,8 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
             )}
           </div>
           <div>
-            <p className="font-extrabold text-gray-900 text-lg leading-tight">{article.authorName || "Admin User"}</p>
-            <div className="flex items-center space-x-3 text-sm text-gray-500 mt-1">
+            <p className="font-extrabold text-gray-900 dark:text-white text-lg leading-tight">{article.authorName || "Admin User"}</p>
+            <div className="flex items-center space-x-3 text-sm text-gray-500 dark:text-gray-400 mt-1">
               <span className="flex items-center space-x-1.5">
                 <FiCalendar className="w-4 h-4 text-blue-500" />
                 <span className="font-medium">
@@ -129,7 +129,7 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
         </div>
 
         <div className="flex items-center space-x-3">
-          <button className="group flex items-center space-x-2 px-6 py-3 bg-white border border-gray-200 rounded-2xl text-gray-700 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all duration-300 shadow-sm hover:shadow-md active:scale-95">
+          <button className="group flex items-center space-x-2 px-6 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-red-950/30 hover:text-red-600 dark:hover:text-red-400 hover:border-red-100 dark:hover:border-red-900/50 transition-all duration-300 shadow-sm hover:shadow-md active:scale-95">
             <FiHeart className="w-5 h-5 transition-transform group-hover:scale-110" />
             <span className="font-bold text-[15px]">{article.likes}</span>
           </button>
@@ -138,30 +138,27 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
 
       {/* Article Content */}
       <div className="px-8 py-4 md:px-12 md:py-6 lg:px-16 lg:py-8">
-        {/* Inline Table of Contents for easy navigation and mobile readers */}
-        <TableOfContents headings={headings} variant="inline" />
-
-        <div className="prose prose-blue lg:prose-xl max-w-none text-gray-800 leading-[1.9] font-normal selection:bg-blue-100">
+        <div className="prose prose-blue lg:prose-xl max-w-none text-gray-800 dark:text-gray-200 leading-[1.9] font-normal selection:bg-blue-100 dark:selection:bg-blue-900">
           <div dangerouslySetInnerHTML={{ __html: processedHtml || article.content || '' }} />
         </div>
 
         {/* Tags & Footer */}
-        <div className="mt-20 pt-12 border-t border-gray-100">
+        <div className="mt-20 pt-12 border-t border-gray-100 dark:border-gray-800">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-gray-400 font-bold text-sm uppercase tracking-widest mr-4 flex items-center gap-2">
-              <FiBookmark className="text-blue-600 w-4 h-4" />
+            <span className="text-gray-400 dark:text-gray-500 font-bold text-sm uppercase tracking-widest mr-4 flex items-center gap-2">
+              <FiBookmark className="text-blue-600 dark:text-blue-400 w-4 h-4" />
               Categorized In
             </span>
             {article.category && (
               <Link href={`/categories/${typeof article.category === 'string' ? article.category.toLowerCase().replace(/ /g, '-') : article.category.slug}`}>
-                <span className="bg-blue-50 text-blue-700 border border-blue-100/50 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer capitalize">
+                <span className="bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-100/50 dark:border-blue-800/50 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer capitalize">
                   {typeof article.category === 'string' ? article.category : article.category.name}
                 </span>
               </Link>
             )}
             {article.tags && article.tags.map((tag, index) => (
               <Link key={index} href={`/tags/${tag.toLowerCase()}`}>
-                <span className="bg-gray-50 text-gray-600 border border-gray-100 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-white hover:border-blue-200 hover:text-blue-600 hover:shadow-md transition-all duration-300 cursor-pointer">
+                <span className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-white dark:hover:bg-gray-700 hover:border-blue-200 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md transition-all duration-300 cursor-pointer">
                   #{tag}
                 </span>
               </Link>
@@ -169,12 +166,12 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
             {!article.tags && (
               <>
                 <Link href="/tags/blog">
-                  <span className="bg-gray-50 text-gray-600 border border-gray-100 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-white transition-all cursor-pointer">
+                  <span className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-white dark:hover:bg-gray-700 transition-all cursor-pointer">
                     #Blog
                   </span>
                 </Link>
                 <Link href="/tags/tech">
-                  <span className="bg-gray-50 text-gray-600 border border-gray-100 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-white transition-all cursor-pointer">
+                  <span className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-white dark:hover:bg-gray-700 transition-all cursor-pointer">
                     #Tech
                   </span>
                 </Link>

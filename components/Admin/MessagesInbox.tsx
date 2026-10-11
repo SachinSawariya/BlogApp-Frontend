@@ -19,14 +19,14 @@ export default function MessagesInbox() {
     return (
       <div className="space-y-4">
         {[0, 1, 2, 3].map((i) => (
-          <div key={i} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm animate-pulse">
+          <div key={i} className="bg-white dark:bg-gray-900 rounded-2xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm animate-pulse">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-gray-200" />
+              <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800" />
               <div className="flex-1 space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-1/3" />
-                <div className="h-3 bg-gray-100 rounded w-1/2" />
+                <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-1/3" />
+                <div className="h-3 bg-gray-100 dark:bg-gray-850 rounded w-1/2" />
               </div>
-              <div className="h-3 w-14 bg-gray-100 rounded" />
+              <div className="h-3 w-14 bg-gray-100 dark:bg-gray-850 rounded" />
             </div>
           </div>
         ))}
@@ -38,11 +38,11 @@ export default function MessagesInbox() {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center mb-4">
+        <div className="w-16 h-16 rounded-2xl bg-red-50 dark:bg-red-950/40 flex items-center justify-center mb-4">
           <FiAlertCircle className="w-8 h-8 text-red-400" />
         </div>
-        <p className="text-gray-700 font-semibold mb-1">Could not load messages</p>
-        <p className="text-gray-400 text-sm mb-6">{error}</p>
+        <p className="text-gray-700 dark:text-gray-200 font-semibold mb-1">Could not load messages</p>
+        <p className="text-gray-400 dark:text-gray-500 text-sm mb-6">{error}</p>
         <button
           onClick={fetchMessages}
           className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors"
@@ -57,11 +57,11 @@ export default function MessagesInbox() {
   if (messages.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-4">
+        <div className="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center mb-4">
           <FiInbox className="w-8 h-8 text-blue-400" />
         </div>
-        <p className="text-gray-700 font-semibold mb-1">No messages yet</p>
-        <p className="text-gray-400 text-sm">When users send a message it will appear here.</p>
+        <p className="text-gray-700 dark:text-gray-200 font-semibold mb-1">No messages yet</p>
+        <p className="text-gray-400 dark:text-gray-500 text-sm">When users send a message it will appear here.</p>
       </div>
     );
   }
@@ -74,8 +74,10 @@ export default function MessagesInbox() {
         return (
           <div
             key={msg._id}
-            className={`bg-white rounded-2xl border transition-all duration-200 shadow-sm overflow-hidden ${
-              isOpen ? "border-blue-200 shadow-md" : "border-gray-100 hover:border-gray-200"
+            className={`bg-white dark:bg-gray-900 rounded-2xl border transition-all duration-200 shadow-sm overflow-hidden ${
+              isOpen 
+                ? "border-blue-200 dark:border-blue-600/60 shadow-md" 
+                : "border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700"
             }`}
           >
             {/* Row header — always visible */}
@@ -91,16 +93,16 @@ export default function MessagesInbox() {
               {/* Meta */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
-                  <span className="font-semibold text-gray-900 text-sm truncate">{msg.name}</span>
-                  <span className="hidden sm:inline text-gray-300">·</span>
-                  <span className="hidden sm:inline text-xs text-gray-400 truncate">{msg.email}</span>
+                  <span className="font-semibold text-gray-900 dark:text-white text-sm truncate">{msg.name}</span>
+                  <span className="hidden sm:inline text-gray-300 dark:text-gray-600">·</span>
+                  <span className="hidden sm:inline text-xs text-gray-400 dark:text-gray-500 truncate">{msg.email}</span>
                 </div>
-                <p className="text-sm text-gray-500 font-medium truncate">{msg.subject}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300 font-medium truncate">{msg.subject}</p>
               </div>
 
               {/* Time + chevron */}
               <div className="flex items-center gap-3 flex-shrink-0">
-                <span className="text-xs text-gray-400 whitespace-nowrap flex items-center gap-1">
+                <span className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap flex items-center gap-1">
                   <FiClock size={11} /> {timeAgo(msg.createdAt)}
                 </span>
                 {isOpen ? (
@@ -113,9 +115,9 @@ export default function MessagesInbox() {
 
             {/* Expanded body */}
             {isOpen && (
-              <div className="px-5 pb-5 border-t border-gray-50">
+              <div className="px-5 pb-5 border-t border-gray-50 dark:border-gray-800/80">
                 <div className="pt-4 space-y-3">
-                  <div className="flex flex-wrap gap-3 text-xs text-gray-400">
+                  <div className="flex flex-wrap gap-3 text-xs text-gray-400 dark:text-gray-500">
                     <span className="flex items-center gap-1"><FiUser size={11} /> {msg.name}</span>
                     <span className="flex items-center gap-1"><FiMail size={11} /> {msg.email}</span>
                     <span className="flex items-center gap-1">
@@ -126,7 +128,7 @@ export default function MessagesInbox() {
                       })}
                     </span>
                   </div>
-                  <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+                  <div className="bg-gray-50 dark:bg-gray-800/80 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-200 border border-transparent dark:border-gray-700/60 leading-relaxed whitespace-pre-wrap">
                     {msg.message}
                   </div>
                   <a

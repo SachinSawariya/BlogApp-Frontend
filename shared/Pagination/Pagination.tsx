@@ -73,7 +73,7 @@ const SharedPagination = ({
   return (
     <div className="flex flex-col items-center space-y-4 mt-8">
       {/* Results summary */}
-      <div className="text-sm text-gray-600 font-medium">
+      <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
         {startResult}-{endResult} of {totalResults.toLocaleString()}
       </div>
 
@@ -87,7 +87,7 @@ const SharedPagination = ({
               e.preventDefault();
               onPageChange(currentPage - 1);
             }}
-            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50 hover:text-gray-900 transition-colors"
+            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-l-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             <FiChevronLeft className="w-4 h-4 mr-1" />
             Back
@@ -95,7 +95,7 @@ const SharedPagination = ({
         ) : (
           <button
             disabled
-            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-lg opacity-50 cursor-not-allowed"
+            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-500 bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700/50 rounded-l-lg opacity-50 cursor-not-allowed"
           >
             <FiChevronLeft className="w-4 h-4 mr-1" />
             Back
@@ -107,7 +107,7 @@ const SharedPagination = ({
           {getVisiblePages().map((page, index) => (
             <div key={index}>
               {page === "..." ? (
-                <span className="px-3 py-2 text-sm text-gray-500 bg-white border-t border-b border-gray-300">
+                <span className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border-t border-b border-gray-300 dark:border-gray-700">
                   ...
                 </span>
               ) : (
@@ -119,8 +119,8 @@ const SharedPagination = ({
                   }}
                   className={`px-3 py-2 text-sm font-medium transition-colors inline-block ${
                     currentPage === page
-                      ? "bg-blue-600 text-white border border-blue-600"
-                      : "text-gray-700 bg-white border-t border-b border-gray-300 hover:bg-gray-50 hover:text-gray-900"
+                      ? "bg-blue-600 dark:bg-blue-600 text-white border border-blue-600 dark:border-blue-600"
+                      : "text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border-t border-b border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
                   }`}
                 >
                   {page}
@@ -138,7 +138,7 @@ const SharedPagination = ({
               e.preventDefault();
               onPageChange(currentPage + 1);
             }}
-            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50 hover:text-gray-900 transition-colors"
+            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-r-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             Next
             <FiChevronRight className="w-4 h-4 ml-1" />
@@ -146,7 +146,7 @@ const SharedPagination = ({
         ) : (
           <button
             disabled
-            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-lg opacity-50 cursor-not-allowed"
+            className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-500 bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700/50 rounded-r-lg opacity-50 cursor-not-allowed"
           >
             Next
             <FiChevronRight className="w-4 h-4 ml-1" />
@@ -156,7 +156,7 @@ const SharedPagination = ({
 
       {/* Results per page selector */}
       <div className="flex items-center space-x-2 text-sm">
-        <span className="text-gray-600">Results per page:</span>
+        <span className="text-gray-600 dark:text-gray-400">Results per page:</span>
         <select
           value={resultsPerPage}
           onChange={(e) => {
@@ -166,7 +166,7 @@ const SharedPagination = ({
             });
             window.dispatchEvent(event);
           }}
-          className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
           <option value={5}>5</option>
           <option value={10}>10</option>

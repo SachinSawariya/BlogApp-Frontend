@@ -15,19 +15,19 @@ export const LoginForm = () => {
   } = useAdminLogin();
 
   return (
-    <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-3xl shadow-2xl border border-gray-100">
+    <div className="max-w-md w-full space-y-8 p-10 bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 transition-colors">
       <div>
-        <h2 className="mt-6 text-center text-3xl font-black text-gray-900 tracking-tight">
-          Admin <span className="text-blue-600">Portal</span>
+        <h2 className="mt-6 text-center text-3xl font-black text-gray-900 dark:text-white tracking-tight">
+          Admin <span className="text-blue-600 dark:text-blue-400">Portal</span>
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-500 font-medium">
+        <p className="mt-2 text-center text-sm text-gray-500 dark:text-gray-400 font-medium">
           Sign in to manage your blog content
         </p>
       </div>
       
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-2xl flex items-center gap-3 text-sm font-bold border border-red-100">
+          <div className="bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 p-4 rounded-2xl flex items-center gap-3 text-sm font-bold border border-red-100 dark:border-red-900/40">
             <FiAlertCircle size={18} />
             {error}
           </div>
@@ -36,7 +36,7 @@ export const LoginForm = () => {
         <div className="space-y-4">
           <div className="relative">
             <label htmlFor="email-address" className="sr-only">Email address</label>
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 dark:text-gray-500">
               <FiMail size={20} />
             </div>
             <input
@@ -45,7 +45,7 @@ export const LoginForm = () => {
               type="email"
               autoComplete="email"
               required
-              className="appearance-none block w-full pl-12 pr-4 py-4 border-none bg-gray-50 rounded-2xl text-gray-900 font-medium placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+              className="appearance-none block w-full pl-12 pr-4 py-4 border-none bg-gray-50 dark:bg-gray-800 rounded-2xl text-gray-900 dark:text-white font-medium placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
               placeholder="Admin Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -54,7 +54,7 @@ export const LoginForm = () => {
           
           <div className="relative">
             <label htmlFor="password" className="sr-only">Password</label>
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 dark:text-gray-500">
               <FiLock size={20} />
             </div>
             <input
@@ -63,7 +63,7 @@ export const LoginForm = () => {
               type="password"
               autoComplete="current-password"
               required
-              className="appearance-none block w-full pl-12 pr-4 py-4 border-none bg-gray-50 rounded-2xl text-gray-900 font-medium placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+              className="appearance-none block w-full pl-12 pr-4 py-4 border-none bg-gray-50 dark:bg-gray-800 rounded-2xl text-gray-900 dark:text-white font-medium placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

@@ -72,15 +72,15 @@ const Sidebar = ({ activeArticle, onArticleSelect }) => {
 
       {/* Sidebar */}
       <aside 
-        className={`fixed md:relative top-0 left-0 h-full w-72 bg-white border-r border-gray-200 z-30 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed md:relative top-0 left-0 h-full w-72 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-30 transform transition-transform duration-300 ease-in-out ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
         aria-label="Article navigation"
       >
         <div className="h-full flex flex-col overflow-y-auto">
-          <div className="p-4 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-800">Documentation</h2>
-            <p className="text-sm text-gray-500 mt-1">Browse all tutorials and guides</p>
+          <div className="p-4 border-b border-gray-200 dark:border-gray-800">
+            <h2 className="text-xl font-bold text-gray-800 dark:text-white">Documentation</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Browse all tutorials and guides</p>
             
             {/* Search on all devices */}
             <div className="mt-4">
@@ -88,7 +88,7 @@ const Sidebar = ({ activeArticle, onArticleSelect }) => {
                 <input
                   type="text"
                   placeholder="Search articles..."
-                  className="w-full pl-9 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full pl-9 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
                 <FiSearch className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               </div>
@@ -101,7 +101,7 @@ const Sidebar = ({ activeArticle, onArticleSelect }) => {
                 <div key={section.id} className="mb-2">
                   <button
                     onClick={() => toggleSection(section.id)}
-                    className="w-full flex items-center justify-between text-left py-2 px-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
+                    className="w-full flex items-center justify-between text-left py-2 px-3 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
                     aria-expanded={expandedSections[section.id]}
                     aria-controls={`section-${section.id}`}
                   >
@@ -129,8 +129,8 @@ const Sidebar = ({ activeArticle, onArticleSelect }) => {
                           }}
                           className={`w-full text-left py-2 px-4 text-sm rounded-md transition-colors ${
                             activeArticle === article.id 
-                              ? 'bg-blue-50 text-blue-700 font-medium' 
-                              : 'text-gray-700 hover:bg-gray-100'
+                              ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 font-medium' 
+                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                           }`}
                         >
                           {article.title}
@@ -144,7 +144,7 @@ const Sidebar = ({ activeArticle, onArticleSelect }) => {
           </div>
           
           {/* Bottom gradient for content indication */}
-          <div className="sticky bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+          <div className="sticky bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none" />
         </div>
       </aside>
     </>

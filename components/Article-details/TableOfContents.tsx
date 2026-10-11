@@ -58,10 +58,10 @@ export default function TableOfContents({ headings, variant = "inline" }: TableO
     return (
       <div className="group">
         <div className="flex items-center space-x-3 mb-4">
-          <div className="p-2.5 bg-blue-50/50 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-            <FiList className="w-5 h-5 text-blue-600 group-hover:text-white" />
+          <div className="p-2.5 bg-blue-50/50 dark:bg-blue-950/40 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+            <FiList className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:text-white" />
           </div>
-          <h4 className="font-extrabold text-gray-800 text-sm uppercase tracking-widest">
+          <h4 className="font-extrabold text-gray-800 dark:text-gray-200 text-sm uppercase tracking-widest">
             On This Page
           </h4>
         </div>
@@ -77,8 +77,8 @@ export default function TableOfContents({ headings, variant = "inline" }: TableO
                   heading.level === 3 ? "pl-5 text-[13px]" : "pl-3 font-semibold"
                 } ${
                   isActive
-                    ? "border-blue-600 text-blue-600 font-bold bg-blue-50/40 rounded-r-lg"
-                    : "border-gray-100 text-gray-600 hover:border-gray-300 hover:text-gray-900"
+                    ? "border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-bold bg-blue-50/40 dark:bg-blue-950/40 rounded-r-lg"
+                    : "border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-900 dark:hover:text-white"
                 }`}
               >
                 {heading.text}
@@ -94,7 +94,7 @@ export default function TableOfContents({ headings, variant = "inline" }: TableO
   return (
     <nav
       aria-label="Table of contents"
-      className="mb-10 bg-gradient-to-br from-blue-50/60 via-indigo-50/30 to-purple-50/40 rounded-3xl border border-blue-100/80 p-6 md:p-8 backdrop-blur-sm shadow-[0_4px_20px_rgba(59,130,246,0.04)]"
+      className="mb-10 bg-gradient-to-br from-blue-50/60 via-indigo-50/30 to-purple-50/40 dark:from-gray-800/80 dark:via-gray-800/60 dark:to-gray-800/40 rounded-3xl border border-blue-100/80 dark:border-gray-700/60 p-6 md:p-8 backdrop-blur-sm shadow-[0_4px_20px_rgba(59,130,246,0.04)] dark:shadow-none"
     >
       <div className="flex items-center justify-between cursor-pointer select-none" onClick={() => setIsOpen(!isOpen)}>
         <div className="flex items-center space-x-3">
@@ -102,10 +102,10 @@ export default function TableOfContents({ headings, variant = "inline" }: TableO
             <FiList className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-extrabold text-gray-900 text-lg md:text-xl tracking-tight">
+            <h3 className="font-extrabold text-gray-900 dark:text-white text-lg md:text-xl tracking-tight">
               Table of Contents
             </h3>
-            <p className="text-xs text-gray-500 font-medium mt-0.5">
+            <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5">
               {headings.length} sections in this article
             </p>
           </div>
@@ -113,7 +113,7 @@ export default function TableOfContents({ headings, variant = "inline" }: TableO
 
         <button
           type="button"
-          className="p-2 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-white/80 transition-all"
+          className="p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-gray-700 transition-all"
           aria-label={isOpen ? "Collapse table of contents" : "Expand table of contents"}
         >
           {isOpen ? <FiChevronUp className="w-5 h-5" /> : <FiChevronDown className="w-5 h-5" />}
@@ -121,7 +121,7 @@ export default function TableOfContents({ headings, variant = "inline" }: TableO
       </div>
 
       {isOpen && (
-        <ol className="mt-6 pt-5 border-t border-blue-100/60 space-y-2.5 list-none">
+        <ol className="mt-6 pt-5 border-t border-blue-100/60 dark:border-gray-700/60 space-y-2.5 list-none">
           {headings.map((heading, index) => {
             const isActive = activeId === heading.id;
             return (
@@ -135,19 +135,19 @@ export default function TableOfContents({ headings, variant = "inline" }: TableO
                   className={`group flex items-start gap-2.5 py-1 px-2.5 rounded-xl transition-all duration-200 ${
                     isActive
                       ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 font-bold"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-white/70"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/70 dark:hover:bg-gray-700/60"
                   }`}
                 >
                   {heading.level === 3 ? (
                     <FiCornerDownRight
                       className={`w-4 h-4 mt-0.5 shrink-0 transition-colors ${
-                        isActive ? "text-white" : "text-gray-400 group-hover:text-blue-500"
+                        isActive ? "text-white" : "text-gray-400 dark:text-gray-500 group-hover:text-blue-500"
                       }`}
                     />
                   ) : (
                     <span
                       className={`inline-flex items-center justify-center w-5 h-5 rounded-md text-xs font-bold shrink-0 mt-0.5 transition-colors ${
-                        isActive ? "bg-white/20 text-white" : "bg-blue-100 text-blue-700 group-hover:bg-blue-600 group-hover:text-white"
+                        isActive ? "bg-white/20 text-white" : "bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 group-hover:bg-blue-600 group-hover:text-white"
                       }`}
                     >
                       {index + 1}

@@ -30,8 +30,8 @@ export default function RelatedLinks({ article, relatedArticles = [] }: RelatedL
 
   return (
     <div className="space-y-6 sticky top-12">
-      <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 border border-gray-100/80">
-        <h3 className="text-2xl font-extrabold mb-8 text-gray-900 tracking-tight">
+      <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-black/50 p-8 border border-gray-100/80 dark:border-gray-800 transition-colors">
+        <h3 className="text-2xl font-extrabold mb-8 text-gray-900 dark:text-white tracking-tight">
           Explore
         </h3>
         
@@ -43,38 +43,38 @@ export default function RelatedLinks({ article, relatedArticles = [] }: RelatedL
           {/* Article Category */}
           <div className="group">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="p-2.5 bg-blue-50/50 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                <FiTag className="w-5 h-5 text-blue-600 group-hover:text-white" />
+              <div className="p-2.5 bg-blue-50/50 dark:bg-blue-950/40 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                <FiTag className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:text-white" />
               </div>
-              <h4 className="font-extrabold text-gray-800 text-sm uppercase tracking-widest">Category</h4>
+              <h4 className="font-extrabold text-gray-800 dark:text-gray-200 text-sm uppercase tracking-widest">Category</h4>
             </div>
             <Link
               href={`/categories/${typeof article.category === 'string' ? article.category.toLowerCase() : article.category?.slug || ""}`}
-              className="flex items-center justify-between px-5 py-4 bg-gray-50/50 hover:bg-white border border-transparent hover:border-blue-100 hover:shadow-xl hover:shadow-blue-500/5 rounded-2xl transition-all duration-500 group/link"
+              className="flex items-center justify-between px-5 py-4 bg-gray-50/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800 border border-transparent hover:border-blue-100 dark:hover:border-blue-900/50 hover:shadow-xl hover:shadow-blue-500/5 rounded-2xl transition-all duration-500 group/link"
             >
-              <span className="text-base font-bold capitalize text-gray-700 group-hover/link:text-blue-700">
+              <span className="text-base font-bold capitalize text-gray-700 dark:text-gray-300 group-hover/link:text-blue-700 dark:group-hover/link:text-blue-400">
                 {typeof article.category === 'string' ? article.category : article.category?.name || "Uncategorized"}
               </span>
-              <FiExternalLink className="w-5 h-5 text-gray-300 group-hover/link:text-blue-600 transition-colors" />
+              <FiExternalLink className="w-5 h-5 text-gray-300 dark:text-gray-600 group-hover/link:text-blue-600 dark:group-hover/link:text-blue-400 transition-colors" />
             </Link>
           </div>
 
           {/* Quick Stats */}
           <div className="group">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="p-2.5 bg-emerald-50/50 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
-                <FiTrendingUp className="w-5 h-5 text-emerald-600 group-hover:text-white" />
+              <div className="p-2.5 bg-emerald-50/50 dark:bg-emerald-950/40 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                <FiTrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-400 group-hover:text-white" />
               </div>
-              <h4 className="font-extrabold text-gray-800 text-sm uppercase tracking-widest">Analytics</h4>
+              <h4 className="font-extrabold text-gray-800 dark:text-gray-200 text-sm uppercase tracking-widest">Analytics</h4>
             </div>
             <div className="grid grid-cols-1 gap-3">
-              <div className="flex justify-between items-center bg-gray-50/50 p-4 rounded-2xl border border-transparent hover:bg-white hover:border-emerald-100 transition-all duration-300">
-                <span className="text-xs font-bold text-gray-400 tracking-wider">READ TIME</span>
-                <span className="text-sm font-extrabold text-gray-900">{article.readTime}</span>
+              <div className="flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 p-4 rounded-2xl border border-transparent hover:bg-white dark:hover:bg-gray-800 hover:border-emerald-100 dark:hover:border-emerald-900/50 transition-all duration-300">
+                <span className="text-xs font-bold text-gray-400 dark:text-gray-500 tracking-wider">READ TIME</span>
+                <span className="text-sm font-extrabold text-gray-900 dark:text-white">{article.readTime}</span>
               </div>
-              <div className="flex justify-between items-center bg-gray-50/50 p-4 rounded-2xl border border-transparent hover:bg-white hover:border-emerald-100 transition-all duration-300">
-                <span className="text-xs font-bold text-gray-400 tracking-wider">ENGAGEMENT</span>
-                <span className="text-sm font-extrabold text-gray-900">{(article.likes || 0) + (article.comments || 0)}</span>
+              <div className="flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 p-4 rounded-2xl border border-transparent hover:bg-white dark:hover:bg-gray-800 hover:border-emerald-100 dark:hover:border-emerald-900/50 transition-all duration-300">
+                <span className="text-xs font-bold text-gray-400 dark:text-gray-500 tracking-wider">ENGAGEMENT</span>
+                <span className="text-sm font-extrabold text-gray-900 dark:text-white">{(article.likes || 0) + (article.comments || 0)}</span>
               </div>
             </div>
           </div>
@@ -83,22 +83,22 @@ export default function RelatedLinks({ article, relatedArticles = [] }: RelatedL
           {Array.isArray(relatedArticles) && relatedArticles.length > 0 && (
             <div className="group">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="p-2.5 bg-purple-50/50 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
-                  <FiBookOpen className="w-5 h-5 text-purple-600 group-hover:text-white" />
+                <div className="p-2.5 bg-purple-50/50 dark:bg-purple-950/40 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+                  <FiBookOpen className="w-5 h-5 text-purple-600 dark:text-purple-400 group-hover:text-white" />
                 </div>
-                <h4 className="font-extrabold text-gray-800 text-sm uppercase tracking-widest">Recommended</h4>
+                <h4 className="font-extrabold text-gray-800 dark:text-gray-200 text-sm uppercase tracking-widest">Recommended</h4>
               </div>
               <div className="space-y-6">
                 {relatedArticles.slice(0, 3).map((relatedArticle) => (
                   <Link
                     key={relatedArticle._id}
                     href={`/articles/${relatedArticle.slug}`}
-                    className="block group/item relative pl-5 border-l-2 border-gray-100 hover:border-purple-500 transition-colors duration-300"
+                    className="block group/item relative pl-5 border-l-2 border-gray-100 dark:border-gray-800 hover:border-purple-500 dark:hover:border-purple-400 transition-colors duration-300"
                   >
-                    <h5 className="text-[15px] font-bold text-gray-800 group-hover/item:text-purple-600 transition-colors line-clamp-2 leading-tight">
+                    <h5 className="text-[15px] font-bold text-gray-800 dark:text-gray-200 group-hover/item:text-purple-600 dark:group-hover/item:text-purple-400 transition-colors line-clamp-2 leading-tight">
                       {relatedArticle.title}
                     </h5>
-                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-2 flex items-center gap-2">
+                    <p className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mt-2 flex items-center gap-2">
                       <FiClock className="w-3 h-3" />
                       {relatedArticle.readTime}
                     </p>

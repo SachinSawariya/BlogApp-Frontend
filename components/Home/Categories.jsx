@@ -5,13 +5,13 @@ import CategoryCardSkeleton from "@/shared/Skeleton/CategoryCardSkeleton";
 
 const CategoryHeader = () => (
   <div className="flex justify-between items-center mb-12">
-    <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-      <FiGrid className="text-blue-600" />
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+      <FiGrid className="text-blue-600 dark:text-blue-400" />
       Browse by Category
     </h2>
     <Link
       href="/categories"
-      className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2 group"
+      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-2 group"
     >
       View All
       <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -28,14 +28,14 @@ const CategoryLoading = () => (
 );
 
 const CategoryEmpty = () => (
-  <div className="text-center py-16 bg-white rounded-3xl border border-dashed border-gray-200">
-    <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
-      <FiFolder className="w-12 h-12 text-blue-200" />
+  <div className="text-center py-16 bg-white dark:bg-gray-950/60 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800">
+    <div className="w-24 h-24 bg-blue-50 dark:bg-blue-950/60 rounded-full flex items-center justify-center mx-auto mb-6">
+      <FiFolder className="w-12 h-12 text-blue-300 dark:text-blue-500" />
     </div>
-    <h3 className="text-xl font-bold text-gray-900 mb-2">
+    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
       No categories available yet
     </h3>
-    <p className="text-gray-500 mb-8 max-w-sm mx-auto">
+    <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-sm mx-auto">
       Categories will appear here once articles are published.
     </p>
     <Link
@@ -63,15 +63,15 @@ const CategoryList = ({ categories }) => (
 
 export default function Categories({ categories, isLoading }) {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <div className="container mx-auto px-4">
         {isLoading ? (
           <>
             <div className="flex justify-between items-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                 Browse by Category
               </h2>
-              <div className="h-8 w-32 bg-gray-200 rounded-lg animate-pulse"></div>
+              <div className="h-8 w-32 bg-gray-200 dark:bg-gray-800 rounded-lg animate-pulse"></div>
             </div>
             <CategoryLoading />
           </>
@@ -79,7 +79,7 @@ export default function Categories({ categories, isLoading }) {
           <>
             {!categories || categories.length === 0 ? (
               <>
-                 <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+                 <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
                   Browse by Category
                 </h2>
                 <CategoryEmpty />

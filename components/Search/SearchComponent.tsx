@@ -28,7 +28,7 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
     
     return parts.map((part, index) =>
       regex.test(part) ? (
-        <mark key={index} className="bg-yellow-200 text-yellow-900 px-1 rounded">
+        <mark key={index} className="bg-yellow-200 dark:bg-yellow-900/60 text-yellow-900 dark:text-yellow-200 px-1 rounded">
           {part}
         </mark>
       ) : (
@@ -42,20 +42,20 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 transition-colors duration-200">
       {/* Header */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-gray-950 dark:via-slate-900 dark:to-gray-950 text-white border-b border-transparent dark:border-gray-800/80 transition-colors duration-200">
+        <div className="absolute inset-0 bg-black opacity-10 dark:opacity-0"></div>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white dark:bg-blue-600 opacity-5 dark:opacity-10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white dark:bg-purple-600 opacity-5 dark:opacity-10 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
         </div>
 
         <div className="relative container mx-auto px-4 py-12">
           <div className="flex items-center mb-6">
             <Link 
               href="/"
-              className="flex items-center text-white/90 hover:text-white transition-colors"
+              className="flex items-center text-white/90 dark:text-slate-300 hover:text-white transition-colors"
             >
               <FiArrowLeft className="w-5 h-5 mr-2" />
               Back to Home
@@ -64,13 +64,13 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
 
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-6">
-              <FiSearch className="w-8 h-8" />
-              <FiBookOpen className="w-8 h-8" />
+              <FiSearch className="w-8 h-8 text-white dark:text-blue-400" />
+              <FiBookOpen className="w-8 h-8 text-white dark:text-indigo-400" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
               Search Articles
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-8">
+            <p className="text-lg md:text-xl text-white/90 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
               Find exactly what you&apos;re looking for from our collection of articles
             </p>
 
@@ -78,11 +78,11 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
             <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <FiSearch className="h-5 w-5 text-blue-200" />
+                  <FiSearch className="h-5 w-5 text-blue-200 dark:text-gray-400" />
                 </div>
                 <input
                   type="text"
-                  className="block w-full pl-12 pr-4 py-3 border border-white/20 rounded-xl leading-5 bg-white/10 backdrop-blur-sm placeholder-blue-200 text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent shadow-lg transition-all duration-200"
+                  className="block w-full pl-12 pr-4 py-3 border border-white/20 dark:border-gray-700/60 rounded-xl leading-5 bg-white/10 dark:bg-gray-800/70 backdrop-blur-sm placeholder-blue-200 dark:placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-white/50 dark:focus:ring-blue-500/50 focus:border-transparent shadow-lg transition-all duration-200"
                   placeholder="Search articles by title, content, category, tags..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -120,18 +120,18 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
           <>
             {/* Results Summary */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                 {searchQuery ? (
                   <>
                     Found {filteredArticles.length} result{filteredArticles.length !== 1 ? 's' : ''} for &quot;
-                    <span className="text-blue-600">{searchQuery}</span>&quot;
+                    <span className="text-blue-600 dark:text-blue-400">{searchQuery}</span>&quot;
                   </>
                 ) : (
                   "Enter a search term to find articles"
                 )}
               </h2>
               {!searchQuery && (
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-400">
                   Try searching for topics, keywords, or article titles that interest you
                 </p>
               )}
@@ -140,25 +140,25 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
             {/* Results Grid */}
             {searchQuery && filteredArticles.length === 0 ? (
               <div className="text-center py-16">
-                <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-8">
-                  <FiSearch className="w-16 h-16 text-gray-400" />
+                <div className="w-32 h-32 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-8">
+                  <FiSearch className="w-16 h-16 text-gray-400 dark:text-gray-500" />
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
                   No articles found
                 </h3>
-                <p className="text-gray-600 text-lg max-w-md mx-auto mb-8">
+                <p className="text-gray-600 dark:text-gray-400 text-lg max-w-md mx-auto mb-8">
                   No articles match your search. Try different keywords or browse all articles.
                 </p>
                 <div className="space-x-4">
                   <button 
                     onClick={() => setSearchQuery('')}
-                    className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
+                    className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium shadow-md"
                   >
                     Clear Search
                   </button>
                   <Link 
                     href="/articles"
-                    className="inline-block px-8 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                    className="inline-block px-8 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium"
                   >
                     Browse All Articles
                   </Link>
@@ -169,7 +169,7 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
                 {filteredArticles.map((article) => (
                   <div
                     key={article._id}
-                    className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                    className="bg-white dark:bg-gray-800/90 rounded-xl shadow-sm dark:shadow-black/30 border border-gray-100 dark:border-gray-700/60 overflow-hidden hover:shadow-lg transition-all duration-300"
                   >
                     <Link href={`/articles/${typeof article.category === 'string' ? article.category : article.category?.slug}/${article.slug}`}>
                       {article.coverImage && (
@@ -185,22 +185,22 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
                       )}
                       <div className="p-6">
                         <div className="flex items-center gap-2 mb-3">
-                          <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+                          <span className="px-3 py-1 bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-xs font-medium rounded-full">
                             {typeof article.category === 'string' ? article.category : article.category?.name}
                           </span>
                           {article.readTime && (
-                            <span className="flex items-center text-gray-500 text-sm">
+                            <span className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
                               <FiClock className="w-3 h-3 mr-1" />
                               {article.readTime}
                             </span>
                           )}
                         </div>
                         
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-2">
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
                           {highlightText(article.title, searchQuery)}
                         </h3>
                         
-                        <p className="text-gray-600 mb-4 line-clamp-3">
+                        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
                           {highlightText(truncateContent(article.content), searchQuery)}
                         </p>
 
@@ -209,7 +209,7 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
                             {article.tags.slice(0, 3).map((tag, index) => (
                               <span
                                 key={index}
-                                className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md"
+                                className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-md"
                               >
                                 #{tag}
                               </span>
@@ -217,7 +217,7 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
                           </div>
                         )}
 
-                        <div className="flex items-center justify-between text-sm text-gray-500">
+                        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                           <div className="flex items-center">
                             {article.authorAvatar && (
                               <Image
