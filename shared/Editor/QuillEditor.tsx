@@ -288,16 +288,16 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
 
       {/* SEO-Optimized Image Insert Modal */}
       {showImageModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm animate-fade-in-up">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 md:p-8 border border-gray-100 space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/60 backdrop-blur-sm animate-fade-in-up">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-lg w-full p-6 md:p-8 border border-gray-100 dark:border-gray-800 space-y-6 transition-colors">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-gray-800">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/20">
                   <FiImage className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold text-gray-900 text-lg">Insert Image</h3>
-                  <p className="text-xs text-gray-500 font-medium">
+                  <h3 className="font-extrabold text-gray-900 dark:text-white text-lg">Insert Image</h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                     Optimized for Core Web Vitals & Image SEO
                   </p>
                 </div>
@@ -305,21 +305,21 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
               <button
                 type="button"
                 onClick={() => setShowImageModal(false)}
-                className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-all"
+                className="p-2 text-gray-400 hover:text-gray-700 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all"
               >
                 <FiX className="w-5 h-5" />
               </button>
             </div>
 
             {/* Tab Switcher */}
-            <div className="flex p-1 bg-gray-100 rounded-2xl">
+            <div className="flex p-1 bg-gray-100 dark:bg-gray-800 rounded-2xl">
               <button
                 type="button"
                 onClick={() => setImageTab("url")}
                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all ${
                   imageTab === "url"
-                    ? "bg-white text-blue-600 shadow-sm"
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 }`}
               >
                 <FiLink className="w-4 h-4" />
@@ -330,8 +330,8 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
                 onClick={() => setImageTab("upload")}
                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition-all ${
                   imageTab === "upload"
-                    ? "bg-white text-blue-600 shadow-sm"
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm"
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 }`}
               >
                 <FiUploadCloud className="w-4 h-4" />
@@ -343,17 +343,17 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
             {imageTab === "url" && (
               <div className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-700">Image URL</label>
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300">Image URL</label>
                   <input
                     type="url"
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
                     placeholder="https://images.unsplash.com/... or https://res.cloudinary.com/..."
-                    className="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 text-sm font-medium"
+                    className="w-full px-4 py-3 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 text-sm font-medium"
                   />
                 </div>
                 {imageUrl && (
-                  <div className="relative h-40 w-full rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
+                  <div className="relative h-40 w-full rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                     <img
                       src={imageUrl}
                       alt="Preview"
@@ -370,7 +370,7 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
             {/* Upload Tab Content */}
             {imageTab === "upload" && (
               <div className="space-y-4">
-                <div className="border-2 border-dashed border-gray-200 hover:border-blue-400 rounded-2xl p-6 text-center transition-colors">
+                <div className="border-2 border-dashed border-gray-200 dark:border-gray-700 hover:border-blue-400 rounded-2xl p-6 text-center transition-colors">
                   <input
                     type="file"
                     id="quill-file-upload"
@@ -382,20 +382,20 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
                     htmlFor="quill-file-upload"
                     className="cursor-pointer flex flex-col items-center justify-center space-y-2"
                   >
-                    <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
+                    <div className="w-12 h-12 bg-blue-50 dark:bg-blue-950/60 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400">
                       <FiUploadCloud className="w-6 h-6" />
                     </div>
-                    <span className="text-sm font-bold text-gray-800">
+                    <span className="text-sm font-bold text-gray-800 dark:text-gray-200">
                       Click to choose an image
                     </span>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-400 dark:text-gray-500">
                       PNG, JPG, WebP (Automatically compressed via canvas)
                     </span>
                   </label>
                 </div>
 
                 {isCompressing && (
-                  <div className="p-3 bg-blue-50 text-blue-700 text-xs rounded-xl flex items-center gap-2 font-medium">
+                  <div className="p-3 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 text-xs rounded-xl flex items-center gap-2 font-medium">
                     <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
                     Compressing and optimizing image...
                   </div>
@@ -403,17 +403,17 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
 
                 {uploadedDataUrl && !isCompressing && (
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs text-emerald-600 font-bold px-1">
+                    <div className="flex items-center justify-between text-xs text-emerald-600 dark:text-emerald-400 font-bold px-1">
                       <span className="flex items-center gap-1">
                         <FiCheck className="w-4 h-4" /> Optimized & Compressed
                       </span>
                       {originalFileSize && (
-                        <span className="text-gray-400 font-normal">
+                        <span className="text-gray-400 dark:text-gray-500 font-normal">
                           Original: {originalFileSize}
                         </span>
                       )}
                     </div>
-                    <div className="relative h-36 w-full rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
+                    <div className="relative h-36 w-full rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                       <img
                         src={uploadedDataUrl}
                         alt="Preview"
@@ -426,12 +426,12 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
             )}
 
             {/* Alt Text Field (Google Image SEO & Accessibility) */}
-            <div className="space-y-1.5 pt-2 border-t border-gray-100">
+            <div className="space-y-1.5 pt-2 border-t border-gray-100 dark:border-gray-800">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-gray-700 flex items-center gap-1.5">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 flex items-center gap-1.5">
                   Image Alt Text (SEO Description)
                 </label>
-                <span className="text-[11px] text-blue-600 font-semibold flex items-center gap-1">
+                <span className="text-[11px] text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-1">
                   <FiInfo className="w-3 h-3" /> Boosts Google Images ranking
                 </span>
               </div>
@@ -440,7 +440,7 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
                 value={imageAlt}
                 onChange={(e) => setImageAlt(e.target.value)}
                 placeholder="Describe this image for search engines & screen readers..."
-                className="w-full px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 text-sm font-medium"
+                className="w-full px-4 py-3 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 text-sm font-medium"
               />
             </div>
 
@@ -449,7 +449,7 @@ export default function QuillEditor({ value, onChange, placeholder }: QuillEdito
               <button
                 type="button"
                 onClick={() => setShowImageModal(false)}
-                className="flex-1 py-3.5 rounded-2xl font-bold text-sm border border-gray-200 text-gray-700 hover:bg-gray-50 transition-all"
+                className="flex-1 py-3.5 rounded-2xl font-bold text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
               >
                 Cancel
               </button>

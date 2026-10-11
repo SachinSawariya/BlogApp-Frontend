@@ -53,13 +53,13 @@ export default function Sitemap() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 transition-colors">
       {/* Header */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-gray-950 dark:via-slate-900 dark:to-gray-950 text-white border-b border-transparent dark:border-gray-800/80 transition-colors">
+        <div className="absolute inset-0 bg-black opacity-10 dark:opacity-0"></div>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white dark:bg-blue-600 opacity-5 dark:opacity-10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white dark:bg-purple-600 opacity-5 dark:opacity-10 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
         </div>
 
         <div className="relative container mx-auto px-4 py-12">
@@ -96,13 +96,13 @@ export default function Sitemap() {
             return (
               <div
                 key={sectionIndex}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300"
+                className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 hover:shadow-lg transition-all duration-300"
               >
                 <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                    <Icon className="w-5 h-5 text-blue-600" />
+                  <div className="w-10 h-10 bg-blue-100 dark:bg-blue-950/60 rounded-lg flex items-center justify-center mr-3">
+                    <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900">{section.title}</h2>
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">{section.title}</h2>
                 </div>
                 
                 <div className="space-y-3">
@@ -110,15 +110,15 @@ export default function Sitemap() {
                     <Link
                       key={itemIndex}
                       href={item.href}
-                      className="block p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200 group"
+                      className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors duration-200 group"
                     >
                       <div className="flex items-start">
-                        <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0 group-hover:scale-125 transition-transform duration-200"></div>
+                        <div className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0 group-hover:scale-125 transition-transform duration-200"></div>
                         <div>
-                          <h3 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                          <h3 className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                             {item.name}
                           </h3>
-                          <p className="text-sm text-gray-600 mt-1">{item.description}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
                         </div>
                       </div>
                     </Link>
@@ -130,13 +130,13 @@ export default function Sitemap() {
         </div>
 
         {/* Quick Stats */}
-        <div className="mt-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-8 text-white">
+        <div className="mt-12 bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-900 dark:to-slate-900 dark:border dark:border-gray-800 rounded-xl p-8 text-white transition-colors">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-6">Website Overview</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold mb-2">50+</div>
-                <div className="text-blue-100">Articles</div>
+                <div className="text-blue-100 dark:text-gray-400">Articles</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold mb-2">10+</div>
@@ -156,9 +156,9 @@ export default function Sitemap() {
 
         {/* Additional Information */}
         <div className="mt-12 text-center">
-          <div className="bg-gray-50 rounded-xl p-8">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Can&apos;t Find What You&apos;re Looking For?</h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-8 border border-transparent dark:border-gray-800 transition-colors">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Can&apos;t Find What You&apos;re Looking For?</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
               Use our search functionality to find specific articles, topics, or information. 
               If you need further assistance, feel free to contact our team.
             </p>
@@ -172,7 +172,7 @@ export default function Sitemap() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium"
               >
                 <FiUser className="w-4 h-4 mr-2" />
                 Contact Us

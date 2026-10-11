@@ -5,13 +5,13 @@ import ArticleCardSkeleton from "@/shared/Skeleton/ArticleCardSkeleton";
 
 const FeaturedHeader = () => (
   <div className="flex justify-between items-center mb-10">
-    <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-      <FiTrendingUp className="text-blue-600" />
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+      <FiTrendingUp className="text-blue-600 dark:text-blue-400" />
       Featured Articles
     </h2>
     <Link 
       href="/articles"
-      className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 group"
+      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1 group"
     >
       View All
       <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -28,14 +28,14 @@ const FeaturedLoading = () => (
 );
 
 const FeaturedEmpty = () => (
-  <div className="text-center py-16 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
-    <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
-      <FiTrendingUp className="w-12 h-12 text-gray-300" />
+  <div className="text-center py-16 bg-gray-50 dark:bg-gray-900/60 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800">
+    <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+      <FiTrendingUp className="w-12 h-12 text-gray-300 dark:text-gray-600" />
     </div>
-    <h3 className="text-xl font-bold text-gray-900 mb-2">
+    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
       No featured articles yet
     </h3>
-    <p className="text-gray-500 mb-8 max-w-sm mx-auto">
+    <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-sm mx-auto">
       Check back soon for our latest featured content or explore other sections.
     </p>
     <Link 
@@ -68,16 +68,16 @@ const FeaturedList = ({ posts }) => (
 
 export default function FeaturedPosts({ posts, isLoading }) {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-gray-950 transition-colors duration-200">
       <div className="container mx-auto px-4">
         {isLoading ? (
           <>
             <div className="flex justify-between items-center mb-10">
-              <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-                <FiTrendingUp className="text-blue-600" />
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <FiTrendingUp className="text-blue-600 dark:text-blue-400" />
                 Featured Articles
               </h2>
-              <div className="h-8 w-24 bg-gray-100 rounded-lg animate-pulse"></div>
+              <div className="h-8 w-24 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div>
             </div>
             <FeaturedLoading />
           </>
@@ -86,8 +86,8 @@ export default function FeaturedPosts({ posts, isLoading }) {
             {!posts || posts.length === 0 ? (
               <>
                 <div className="flex justify-between items-center mb-10">
-                  <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-                    <FiTrendingUp className="text-blue-600" />
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <FiTrendingUp className="text-blue-600 dark:text-blue-400" />
                     Featured Articles
                   </h2>
                 </div>

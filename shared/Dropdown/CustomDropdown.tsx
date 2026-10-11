@@ -53,22 +53,24 @@ export const CustomDropdown = ({
       <div 
         id={id}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full ${icon ? 'pl-12' : 'pl-6'} pr-12 py-4 rounded-2xl bg-gray-50 border-2 transition-all font-bold cursor-pointer flex items-center justify-between ${
-          isOpen ? 'border-blue-500 bg-white ring-4 ring-blue-500/5 shadow-xl shadow-blue-500/5' : 'border-transparent hover:bg-gray-100/50'
+        className={`w-full ${icon ? 'pl-12' : 'pl-6'} pr-12 py-4 rounded-2xl bg-gray-50 dark:bg-gray-800/80 border-2 transition-all font-bold cursor-pointer flex items-center justify-between ${
+          isOpen 
+            ? 'border-blue-500 bg-white dark:bg-gray-800 ring-4 ring-blue-500/10 shadow-xl shadow-blue-500/5' 
+            : 'border-transparent dark:border-gray-700/60 hover:bg-gray-100/50 dark:hover:bg-gray-800'
         }`}
       >
-        <span className={selectedOption ? "text-gray-900" : "text-gray-400"}>
+        <span className={selectedOption ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-gray-500"}>
           {selectedOption ? selectedOption.name : placeholder}
         </span>
         <FiChevronDown 
-          className={`transition-transform duration-300 text-gray-400 ${isOpen ? 'rotate-180 text-blue-500' : ''}`}
+          className={`transition-transform duration-300 text-gray-400 dark:text-gray-400 ${isOpen ? 'rotate-180 text-blue-500 dark:text-blue-400' : ''}`}
           size={20}
           strokeWidth={3}
         />
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-[60] animate-in slide-in-from-top-2 duration-200">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700/80 overflow-hidden z-[60] animate-in slide-in-from-top-2 duration-200">
           <div className="max-h-60 overflow-y-auto p-2 custom-scrollbar">
             {options.map((opt) => (
               <div
@@ -79,8 +81,8 @@ export const CustomDropdown = ({
                 }}
                 className={`px-4 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer flex items-center justify-between group/item ${
                   value === opt.id 
-                    ? 'bg-blue-50 text-blue-600' 
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400' 
+                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-750 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 {opt.name}
@@ -88,7 +90,7 @@ export const CustomDropdown = ({
               </div>
             ))}
             {options.length === 0 && (
-              <div className="px-4 py-8 text-center text-gray-400 text-sm font-medium">
+              <div className="px-4 py-8 text-center text-gray-400 dark:text-gray-500 text-sm font-medium">
                 No options available
               </div>
             )}

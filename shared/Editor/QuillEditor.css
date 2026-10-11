@@ -170,3 +170,179 @@
     height: 70vh; /* slightly taller on mobile */
   }
 }
+
+/* ==========================================================================
+   Dark Mode Support for Quill Editor
+   ========================================================================== */
+.dark .quill-editor-container {
+  background-color: #0f172a;
+  border-color: #334155;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.dark .quill-editor-container:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* Toolbar Dark Mode */
+.dark .quill-editor-container .ql-toolbar.ql-snow {
+  border-bottom: 1px solid #334155;
+  background-color: #1e293b;
+}
+
+.dark .quill-editor-container .ql-snow.ql-toolbar button,
+.dark .quill-editor-container .ql-snow .ql-toolbar button {
+  color: #94a3b8;
+}
+
+.dark .quill-editor-container .ql-snow.ql-toolbar button:hover,
+.dark .quill-editor-container .ql-snow .ql-toolbar button:hover,
+.dark .quill-editor-container .ql-snow.ql-toolbar button:focus,
+.dark .quill-editor-container .ql-snow .ql-toolbar button:focus,
+.dark .quill-editor-container .ql-snow.ql-toolbar button.ql-active,
+.dark .quill-editor-container .ql-snow .ql-toolbar button.ql-active {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+.dark .quill-editor-container .ql-snow .ql-stroke {
+  stroke: #94a3b8;
+}
+
+.dark .quill-editor-container .ql-snow .ql-fill {
+  fill: #94a3b8;
+}
+
+.dark .quill-editor-container .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.dark .quill-editor-container .ql-snow .ql-toolbar button.ql-active .ql-stroke,
+.dark .quill-editor-container .ql-snow.ql-toolbar button:hover .ql-stroke,
+.dark .quill-editor-container .ql-snow .ql-toolbar button:hover .ql-stroke {
+  stroke: #60a5fa;
+}
+
+.dark .quill-editor-container .ql-snow.ql-toolbar button.ql-active .ql-fill,
+.dark .quill-editor-container .ql-snow .ql-toolbar button.ql-active .ql-fill,
+.dark .quill-editor-container .ql-snow.ql-toolbar button:hover .ql-fill,
+.dark .quill-editor-container .ql-snow .ql-toolbar button:hover .ql-fill {
+  fill: #60a5fa;
+}
+
+/* Pickers in Dark Mode */
+.dark .quill-editor-container .ql-snow .ql-picker {
+  color: #cbd5e1;
+}
+
+.dark .quill-editor-container .ql-snow .ql-picker-label {
+  color: #cbd5e1;
+}
+
+.dark .quill-editor-container .ql-snow .ql-picker-label:hover {
+  color: #ffffff;
+}
+
+.dark .quill-editor-container .ql-snow .ql-picker-label:hover .ql-stroke {
+  stroke: #ffffff;
+}
+
+.dark .quill-editor-container .ql-snow .ql-picker-options {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.dark .quill-editor-container .ql-snow .ql-picker-item {
+  color: #94a3b8;
+}
+
+.dark .quill-editor-container .ql-snow .ql-picker-item:hover,
+.dark .quill-editor-container .ql-snow .ql-picker-item.ql-selected {
+  color: #60a5fa;
+  background-color: #0f172a;
+}
+
+/* Editor Body Dark Mode */
+.dark .quill-editor-container .ql-container.ql-snow {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+.dark .quill-editor-container .ql-editor {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+.dark .quill-editor-container .ql-editor p,
+.dark .quill-editor-container .ql-editor li {
+  color: #e2e8f0 !important;
+}
+
+.dark .quill-editor-container .ql-editor h1,
+.dark .quill-editor-container .ql-editor h2,
+.dark .quill-editor-container .ql-editor h3,
+.dark .quill-editor-container .ql-editor h4,
+.dark .quill-editor-container .ql-editor h5,
+.dark .quill-editor-container .ql-editor h6 {
+  color: #ffffff !important;
+}
+
+.dark .quill-editor-container .ql-editor strong,
+.dark .quill-editor-container .ql-editor b {
+  color: #ffffff !important;
+}
+
+.dark .quill-editor-container .ql-editor a {
+  color: #60a5fa !important;
+}
+
+.dark .quill-editor-container .ql-editor a:hover {
+  color: #93c5fd !important;
+}
+
+.dark .quill-editor-container .ql-editor blockquote {
+  border-left-color: #3b82f6 !important;
+  color: #94a3b8 !important;
+}
+
+.dark .quill-editor-container .ql-editor code:not(pre code) {
+  background-color: #1e293b !important;
+  color: #93c5fd !important;
+  border: 1px solid #334155 !important;
+  border-radius: 0.25rem !important;
+  padding: 0.15em 0.4em !important;
+}
+
+.dark .quill-editor-container .ql-editor pre.ql-syntax {
+  background-color: #020617 !important;
+  color: #f8fafc !important;
+  border: 1px solid #1e293b !important;
+}
+
+.dark .quill-editor-container .ql-editor.ql-blank::before {
+  color: #64748b !important;
+}
+
+/* Tooltip (Link modal in editor) Dark Mode */
+.dark .quill-editor-container .ql-snow .ql-tooltip {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #f3f4f6 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 0.75rem !important;
+}
+
+.dark .quill-editor-container .ql-snow .ql-tooltip input[type="text"] {
+  background-color: #0f172a !important;
+  border: 1px solid #475569 !important;
+  color: #ffffff !important;
+  border-radius: 0.5rem !important;
+  padding: 4px 8px !important;
+}
+
+.dark .quill-editor-container .ql-snow .ql-tooltip a.ql-action::after {
+  color: #60a5fa !important;
+}
+
+.dark .quill-editor-container .ql-snow .ql-tooltip a.ql-remove::before {
+  color: #ef4444 !important;
+}

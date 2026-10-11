@@ -34,7 +34,7 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-10">
       {status === "error" && (
-        <div className="mb-8 p-4 bg-red-50 text-red-600 rounded-2xl flex items-center gap-3 font-bold border border-red-100">
+        <div className="mb-8 p-4 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-2xl flex items-center gap-3 font-bold border border-red-100 dark:border-red-900/40">
           <FiAlertCircle size={20} />
           {errorMessage}
         </div>
@@ -63,11 +63,11 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
 
       <div className="space-y-6">
         <div className="space-y-2 min-w-0">
-          <label className="text-sm font-bold text-gray-900 ml-1">
+          <label className="text-sm font-bold text-gray-900 dark:text-white ml-1">
             Article Title
           </label>
           <div className="relative">
-            <FiType className="absolute left-4 top-4 text-gray-400" />
+            <FiType className="absolute left-4 top-4 text-gray-400 dark:text-gray-500" />
             <input
               id="title"
               name="title"
@@ -75,14 +75,14 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
               value={formData.title}
               onChange={handleChange}
               placeholder="Enter a catchy title..."
-              className="w-full pl-12 pr-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 transition-all font-bold"
+              className="w-full pl-12 pr-6 py-4 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 border-none focus:ring-2 focus:ring-blue-500 transition-all font-bold"
             />
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-sm font-bold text-gray-900 ml-1">
+            <label className="text-sm font-bold text-gray-900 dark:text-white ml-1">
               Slug (URL identifier)
             </label>
             <div className="relative">
@@ -93,7 +93,7 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
                 value={formData.slug}
                 onChange={handleChange}
                 placeholder="article-url-slug"
-                className={`w-full px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 transition-all font-medium text-gray-600 ${
+                className={`w-full px-6 py-4 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 border-none focus:ring-2 transition-all font-medium ${
                   isSlugUnique === "taken"
                     ? "focus:ring-red-500"
                     : "focus:ring-blue-500"
@@ -118,7 +118,7 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
             )}
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-bold text-gray-900 ml-1">
+            <label className="text-sm font-bold text-gray-900 dark:text-white ml-1">
               Category
             </label>
             <CustomDropdown
@@ -135,23 +135,23 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div className="space-y-2 min-w-0">
-            <label className="text-sm font-bold text-gray-900 ml-1">
+            <label className="text-sm font-bold text-gray-900 dark:text-white ml-1">
               Cover Image URL
             </label>
             <div className="relative">
-              <FiImage className="absolute left-4 top-4 text-gray-400" />
+              <FiImage className="absolute left-4 top-4 text-gray-400 dark:text-gray-500" />
               <input
                 name="coverImage"
                 required
                 value={formData.coverImage}
                 onChange={handleChange}
                 placeholder="https://images.unsplash.com/..."
-                className="w-full pl-12 pr-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
+                className="w-full pl-12 pr-6 py-4 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 border-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
               />
             </div>
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-bold text-gray-900 ml-1">
+            <label className="text-sm font-bold text-gray-900 dark:text-white ml-1">
               Read Time (minutes)
             </label>
             <input
@@ -160,13 +160,13 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
               required
               value={formData.readTime}
               onChange={handleChange}
-              className="w-full px-4 md:px-6 py-3 md:py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 transition-all font-bold"
+              className="w-full px-4 md:px-6 py-3 md:py-4 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 border-none focus:ring-2 focus:ring-blue-500 transition-all font-bold"
             />
           </div>
         </div>
 
         <div className="space-y-2 min-w-0">
-          <label className="text-sm font-bold text-gray-900 ml-1">
+          <label className="text-sm font-bold text-gray-900 dark:text-white ml-1">
             Tags (comma separated)
           </label>
           <input
@@ -174,12 +174,12 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
             value={formData.tags}
             onChange={handleChange}
             placeholder="AI, React, WebDev..."
-            className="w-full px-4 md:px-6 py-3 md:py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
+            className="w-full px-4 md:px-6 py-3 md:py-4 rounded-2xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 border-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
           />
         </div>
 
         <div className="space-y-2 max-w-full">
-          <label className="text-sm font-bold text-gray-900 ml-1">
+          <label className="text-sm font-bold text-gray-900 dark:text-white ml-1">
             Content (Rich Text Editor)
           </label>
           <div id="content" className="w-full max-w-full overflow-hidden">
@@ -208,7 +208,7 @@ export const WriteArticleForm = ({ slug }: { slug?: string }) => {
               (isSlugUnique === "taken" && !isEdit) ||
               isSlugUnique === "checking"
             }
-            className="flex-1 py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all duration-300 border-2 border-gray-100 hover:bg-gray-50 text-gray-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            className="flex-1 py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all duration-300 border-2 border-gray-100 dark:border-gray-700/80 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {status === "submitting" ? (
               <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>

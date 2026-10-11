@@ -12,7 +12,7 @@ const ErrorState = () => (
       <h2 className="text-2xl font-bold text-red-600 mb-4">
         Oops! Something went wrong
       </h2>
-      <p className="text-gray-600 mb-8">
+      <p className="text-gray-600 dark:text-gray-400 mb-8">
         We're having trouble loading our content. Please try again later.
       </p>
       <button 
@@ -32,7 +32,7 @@ export default function HomePage({ initialFeatured, initialCategories }) {
   const hasError = featuredError || categoriesError;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-950 overflow-x-hidden transition-colors">
       <Hero />
       
       {hasError ? (
