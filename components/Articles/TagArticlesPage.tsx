@@ -115,7 +115,7 @@ const TagArticlesPageComponent = ({ tag, initialData }: TagArticlesPageProps) =>
           <div className="text-center py-20">
             <FiAlertCircle className="w-16 h-16 text-blue-500 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">No articles found</h3>
-            <p className="text-gray-600 dark:text-gray-400">We couldn&apos;t find any articles with the tag #{tag}.</p>
+            <p className="text-gray-600 dark:text-gray-400">We couldn&apos;t find any articles with the tag #{displayTag}.</p>
             <button onClick={handleBack} className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700">Go Back</button>
           </div>
         ) : (

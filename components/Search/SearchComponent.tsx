@@ -206,14 +206,22 @@ export default function SearchComponent({ initialQuery }: SearchComponentProps) 
 
                         {article.tags && article.tags.length > 0 && (
                           <div className="flex flex-wrap gap-2 mb-4">
-                            {article.tags.slice(0, 3).map((tag, index) => (
-                              <span
-                                key={index}
-                                className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-md"
-                              >
-                                #{tag}
-                              </span>
-                            ))}
+                            {article.tags.slice(0, 3).map((tag, index) => {
+                              const tagSlug = encodeURIComponent(
+                                tag.toLowerCase().trim().replace(/[\s_]+/g, '-').replace(/^-+|-+$/g, '')
+                              );
+                              return (
+                                <Link
+                                  key={index}
+                                  href={`/tags/${tagSlug}`}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-650 text-gray-600 dark:text-gray-300 text-xs rounded-md transition-colors cursor-pointer">
+                                    #{tag}
+                                  </span>
+                                </Link>
+                              );
+                            })}
                           </div>
                         )}
 

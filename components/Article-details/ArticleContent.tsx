@@ -156,13 +156,18 @@ export default function ArticleContent({ article, isLoading }: ArticleContentPro
                 </span>
               </Link>
             )}
-            {article.tags && article.tags.map((tag, index) => (
-              <Link key={index} href={`/tags/${tag.toLowerCase()}`}>
-                <span className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-white dark:hover:bg-gray-700 hover:border-blue-200 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md transition-all duration-300 cursor-pointer">
-                  #{tag}
-                </span>
-              </Link>
-            ))}
+            {article.tags && article.tags.map((tag, index) => {
+              const tagSlug = encodeURIComponent(
+                tag.toLowerCase().trim().replace(/[\s_]+/g, '-').replace(/^-+|-+$/g, '')
+              );
+              return (
+                <Link key={index} href={`/tags/${tagSlug}`}>
+                  <span className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700 px-5 py-2 rounded-2xl text-sm font-bold hover:bg-white dark:hover:bg-gray-700 hover:border-blue-200 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md transition-all duration-300 cursor-pointer">
+                    #{tag}
+                  </span>
+                </Link>
+              );
+            })}
             {!article.tags && (
               <>
                 <Link href="/tags/blog">

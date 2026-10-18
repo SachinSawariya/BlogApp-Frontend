@@ -221,8 +221,8 @@ const ArticleCard = ({
       ) : (
         <div className="flex flex-col md:flex-row h-full">
           {/* Left Side - Image */}
-          <div className="md:w-1/3 lg:w-2/5 h-48 md:h-auto relative overflow-hidden bg-gray-100 dark:bg-gray-700/50">
-            <Link href={`/articles/${slug}`} className="block w-full h-full" tabIndex={-1} aria-label={title}>
+          <div className="md:w-1/3 lg:w-2/5 h-48 md:h-auto relative overflow-hidden bg-gray-100 dark:bg-gray-700/50 flex-shrink-0">
+            <Link href={`/articles/${slug}`} className="block w-full h-full md:absolute md:inset-0" tabIndex={-1} aria-label={title}>
               {imageUrl && !imageError ? (
                 <img
                   src={imageUrl}
@@ -240,7 +240,7 @@ const ArticleCard = ({
           </div>
 
           {/* Right Side - Content */}
-          <div className="md:w-2/3 lg:w-3/5 p-6 flex flex-col justify-between">
+          <div className="md:w-2/3 lg:w-3/5 p-6 flex flex-col justify-between flex-grow">
             <div>
               <div className="flex items-center justify-between mb-3">
                 <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">

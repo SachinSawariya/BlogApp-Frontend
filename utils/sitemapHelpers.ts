@@ -61,10 +61,16 @@ export function buildTagLastModMap(articles: Article[]): Map<string, Date> {
       const artDate = new Date(article.updatedAt || article.createdAt || 0);
       article.tags.forEach((tag) => {
         if (typeof tag === "string" && tag.trim()) {
-          const cleanTag = tag.trim().toLowerCase();
-          const existing = map.get(cleanTag);
-          if (!existing || artDate > existing) {
-            map.set(cleanTag, artDate);
+          const cleanTag = tag
+            .trim()
+            .toLowerCase()
+            .replace(/[\s_]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+          if (cleanTag) {
+            const existing = map.get(cleanTag);
+            if (!existing || artDate > existing) {
+              map.set(cleanTag, artDate);
+            }
           }
         }
       });
@@ -135,7 +141,7 @@ export function generateSitemapEntries({
 
   const tagEntries: MetadataRoute.Sitemap = Array.from(tagLastModMap.entries()).map(
     ([tag, lastMod]) => ({
-      url: `${baseUrl}/tags/${encodeURIComponent(tag)}`,
+      url: `${baseUrl}/tags/${encodeURIComponent(tag.replace(/[\s_]+/g, "-"))}`,
       lastModified: lastMod,
       changeFrequency: "weekly",
       priority: 0.6,

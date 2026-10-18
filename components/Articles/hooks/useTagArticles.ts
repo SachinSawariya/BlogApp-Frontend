@@ -28,7 +28,20 @@ export const useTagArticles = (
   const [isLoading, setIsLoading] = useState(!initialData);
   const [error, setError] = useState<Error | null>(null);
 
-  const [displayTag, setDisplayTag] = useState<string>(initialData?.tag || tag);
+  const formatTagFallback = (rawTag: string): string => {
+    try {
+      return decodeURIComponent(rawTag)
+        .trim()
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, (l) => l.toUpperCase());
+    } catch {
+      return rawTag;
+    }
+  };
+
+  const [displayTag, setDisplayTag] = useState<string>(
+    initialData?.tag || formatTagFallback(tag)
+  );
 
   const fetchTagArticles = useCallback(async (forceFetch = false) => {
     if (!tag) return;

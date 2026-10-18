@@ -7,7 +7,7 @@ export interface RawApiArticle {
   content?: string;
   excerpt?: string;
   category?: string | { name: string; slug: string };
-  categoryId?: string | { name: string; slug: string };
+  categoryId?: string | { _id?: string; name: string; slug: string };
   slug?: string;
   readTime?: string;
   imageUrl?: string;
@@ -16,7 +16,11 @@ export interface RawApiArticle {
   comments?: number;
   views?: number;
   authorName?: string;
+  authorAvatar?: string;
   createdAt?: string;
+  updatedAt?: string;
+  status?: string;
+  tags?: string[];
 }
 
 /**
@@ -30,13 +34,19 @@ export const transformArticle = (apiArticle?: RawApiArticle | Article | null): A
   if (!apiArticle) return {} as Article;
 
   const raw = apiArticle as RawApiArticle;
+
+  // Resolve category (supports string or populated categoryId/category object)
+  const cat = raw.categoryId || raw.category;
+  const category = typeof cat === 'object' && cat !== null
+    ? { name: cat.name || 'Uncategorized', slug: cat.slug || '' }
+    : (cat || 'Uncategorized');
+
   return {
     _id: raw.id || raw._id || '',
     title: raw.title || 'Untitled',
     content: raw.content || raw.excerpt || '',
-    category: (typeof raw.category === 'object' && raw.category !== null)
-      ? raw.category
-      : (raw.category || (typeof raw.categoryId === 'string' ? raw.categoryId : 'Uncategorized')),
+    category,
+    categoryId: typeof category === 'object' ? category : undefined,
     slug: raw.slug || '',
     readTime: raw.readTime || '5 min read',
     coverImage: raw.imageUrl || raw.coverImage || '',
@@ -44,7 +54,11 @@ export const transformArticle = (apiArticle?: RawApiArticle | Article | null): A
     comments: raw.comments || 0,
     views: raw.views || 0,
     authorName: raw.authorName || 'Anonymous',
-    createdAt: raw.createdAt || new Date().toISOString()
+    authorAvatar: raw.authorAvatar,
+    status: raw.status,
+    tags: raw.tags || [],
+    createdAt: raw.createdAt || new Date().toISOString(),
+    updatedAt: raw.updatedAt,
   };
 };
 
